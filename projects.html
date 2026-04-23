@@ -3,153 +3,135 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Projects — Maharaj</title>
-  <meta name="description" content="AI systems, scrapers, and data pipelines built by Allan Maharaj."/>
+  <title>Projects — Maharaj Systems</title>
+  <meta name="description" content="Real systems built with Playwright, Claude API, Google Apps Script, and JavaScript."/>
   <link rel="stylesheet" href="styles.css"/>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23131313'/><rect x='6' y='14' width='20' height='4' fill='%23ff571a'/><rect x='14' y='6' width='4' height='20' fill='%23ff571a'/></svg>"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23fafaf9'/><text x='6' y='22' font-size='18' font-family='serif' fill='%23d4500a'>M</text></svg>"/>
 </head>
 <body>
 
-<header class="noise-container">
-  <a class="nav-brand" href="index.html">
-    <span class="msym">terminal</span>
-    MAHARAJ // AI_SYSTEMS
-  </a>
+<nav>
+  <a class="nav-brand" href="index.html">Maharaj <span>Systems</span></a>
   <button class="nav-toggle" aria-label="Toggle menu">
     <span></span><span></span><span></span>
   </button>
   <ul class="nav-links">
-    <li><a href="index.html">HOME</a></li>
-    <li><a href="projects.html" class="active">PROJECTS</a></li>
-    <li><a href="demo.html">DEMO</a></li>
-    <li><a href="index.html#contact">CONTACT</a></li>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+    <li><a href="demo.html">Demo</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
   </ul>
-  <a href="demo.html" class="btn-nav">GET_STARTED</a>
-</header>
+  <a href="demo.html" class="btn-nav">View Demo</a>
+</nav>
 
 <main>
 
   <div class="page-header">
-    <p class="label-caps label-orange" style="margin-bottom:.6rem">DEPLOYMENT_LOG</p>
-    <h1>Real Systems.<br>Real Outputs.</h1>
-    <p>No mockups. Each project runs or has run in production.</p>
+    <p class="section-label" style="margin-bottom:.6rem;">Projects</p>
+    <h1><strong>Real systems.</strong><br>Real outputs.</h1>
+    <p>Each project solves a concrete problem and runs on real infrastructure — not prototypes or demos.</p>
   </div>
 
-  <div class="projects-wrap">
+  <div class="projects-list">
 
+    <!-- PROJECT 01 -->
     <div class="project-card fade-in" id="dancemap">
       <div>
-        <div class="proj-meta-row">
-          <span class="proj-idx">SYS_REF: 001</span>
-          <span class="proj-badge">LIVE</span>
-        </div>
-        <h2 class="proj-title">DanceMap CPH</h2>
-        <p class="proj-desc">Live aggregation engine for salsa, bachata, and kizomba events across Copenhagen. Scrapes multiple sources daily, deduplicates, and delivers clean structured data.</p>
-        <ul class="proj-bullets">
-          <li>Scrapes 8+ event sources on a daily CRON schedule</li>
-          <li>AI parser extracts date, time, venue, price &amp; dance style from unstructured text</li>
-          <li>Fuzzy deduplication layer matches events across sources</li>
-          <li>Outputs to structured JSON API ready for front-end consumption</li>
+        <div class="project-index">01</div>
+        <h2 class="project-title">DanceMap CPH</h2>
+        <p class="project-desc">Copenhagen's dance events are scattered across Facebook, Meetup, and private pages. This system scrapes all of them daily, parses the unstructured content with AI, removes duplicates, and outputs a clean, unified dataset.</p>
+        <ul class="project-bullets">
+          <li>Scrapes multiple event sources on a daily schedule</li>
+          <li>AI parsing extracts date, time, venue, and price from raw text</li>
+          <li>Fuzzy deduplication matches events that appear on multiple sources</li>
+          <li>Structured output stored in Google Sheets for downstream use</li>
         </ul>
-        <div class="tags-row">
-          <span class="tag">Python</span>
-          <span class="tag">BeautifulSoup</span>
-          <span class="tag">NLP</span>
-          <span class="tag">CRON</span>
-          <span class="tag">JSON API</span>
-          <span class="tag">SQLite</span>
+        <div class="tags">
+          <span class="tag">Playwright</span>
+          <span class="tag">Claude API</span>
+          <span class="tag">Google Apps Script</span>
+          <span class="tag">Google Sheets</span>
+          <span class="tag">JavaScript</span>
         </div>
       </div>
-      <div class="proj-actions">
-        <a href="demo.html" class="btn-primary btn-sm">TRY_DEMO</a>
-        <a href="index.html#contact" class="btn-outline btn-sm">REQUEST_ACCESS</a>
+      <div class="project-actions">
+        <a href="demo.html" class="btn-accent">Try the parser</a>
+        <a href="index.html#contact" class="btn-outline">Get in touch</a>
       </div>
     </div>
 
+    <!-- PROJECT 02 -->
     <div class="project-card fade-in" id="extractor">
       <div>
-        <div class="proj-meta-row">
-          <span class="proj-idx">SYS_REF: 002</span>
-          <span class="proj-badge">ACTIVE</span>
-        </div>
-        <h2 class="proj-title">AI Event Extractor</h2>
-        <p class="proj-desc">Language model pipeline that converts raw, unstructured event text into validated, typed JSON. Works on copy-paste text, scraped HTML, and email bodies.</p>
-        <ul class="proj-bullets">
-          <li>Accepts free-form text — no formatting required</li>
-          <li>Extracts: title, date, time, location, price, event type, dance style</li>
-          <li>Confidence scoring per extracted field</li>
-          <li>Handles Danish and English text natively</li>
+        <div class="project-index">02</div>
+        <h2 class="project-title">AI Event Extractor</h2>
+        <p class="project-desc">A parser that takes raw, unstructured event text — from Facebook posts, flyers, or messages — and returns clean, validated JSON with all relevant fields extracted and typed.</p>
+        <ul class="project-bullets">
+          <li>Accepts any free-form text input — no formatting required</li>
+          <li>Extracts: title, date, time, location, price, event type, and dance style</li>
+          <li>Returns a confidence score per extraction</li>
+          <li>Handles both Danish and English text</li>
         </ul>
-        <div class="tags-row">
-          <span class="tag">Python</span>
-          <span class="tag">Regex NLP</span>
+        <div class="tags">
+          <span class="tag">Claude API</span>
+          <span class="tag">JavaScript</span>
           <span class="tag">JSON Schema</span>
-          <span class="tag">Bilingual</span>
-          <span class="tag">Confidence Scoring</span>
         </div>
       </div>
-      <div class="proj-actions">
-        <a href="demo.html" class="btn-primary btn-sm">LIVE_DEMO</a>
+      <div class="project-actions">
+        <a href="demo.html" class="btn-primary" style="font-size:.8rem;padding:.55rem 1rem;">Live demo</a>
       </div>
     </div>
 
+    <!-- PROJECT 03 -->
     <div class="project-card fade-in" id="scraper">
       <div>
-        <div class="proj-meta-row">
-          <span class="proj-idx">SYS_REF: 003</span>
-          <span class="proj-badge">STABLE</span>
-        </div>
-        <h2 class="proj-title">Scraper + Dedup System</h2>
-        <p class="proj-desc">Modular web scraping framework with built-in deduplication. Designed for event aggregation but reusable for any entity-based data collection at scale.</p>
-        <ul class="proj-bullets">
-          <li>Plugin-based scrapers per source — easy to extend</li>
-          <li>Fuzzy matching deduplication using title + date + location fingerprints</li>
-          <li>Structured output with source attribution and timestamps</li>
-          <li>Configurable via YAML — no code changes to add new sources</li>
+        <div class="project-index">03</div>
+        <h2 class="project-title">Scraper + Dedup System</h2>
+        <p class="project-desc">A modular scraping framework with built-in deduplication. Designed for collecting entity-based data from multiple sources without creating duplicate records.</p>
+        <ul class="project-bullets">
+          <li>Separate scraper modules per source — easy to add new ones</li>
+          <li>Deduplication using fuzzy matching on title, date, and location</li>
+          <li>Source attribution and timestamps on every record</li>
+          <li>Configurable without touching the core code</li>
         </ul>
-        <div class="tags-row">
-          <span class="tag">Python</span>
+        <div class="tags">
           <span class="tag">Playwright</span>
-          <span class="tag">FuzzyWuzzy</span>
-          <span class="tag">YAML Config</span>
-          <span class="tag">SQLite</span>
+          <span class="tag">Google Apps Script</span>
+          <span class="tag">JavaScript</span>
         </div>
       </div>
-      <div class="proj-actions">
-        <a href="index.html#contact" class="btn-outline btn-sm">ENQUIRE</a>
+      <div class="project-actions">
+        <a href="index.html#contact" class="btn-outline">Get in touch</a>
       </div>
     </div>
 
   </div>
 
+  <!-- CONTACT -->
   <section id="contact" class="contact-section fade-in">
     <div>
-      <p class="label-caps label-orange">CONTACT_DEV</p>
-      <h2 class="contact-h2">Have a use case?</h2>
+      <h2 class="contact-title">Have a use case?</h2>
+      <p class="contact-sub">Available for freelance and collaboration.</p>
     </div>
-    <div style="text-align:right">
+    <div>
       <a href="mailto:allan@maharaj.dk" class="contact-email">allan@maharaj.dk</a>
-      <p class="label-caps label-dark">COPENHAGEN, DENMARK</p>
+      <p class="contact-loc">Copenhagen, Denmark</p>
     </div>
   </section>
 
 </main>
 
-<footer class="noise-container">
+<footer>
   <div class="footer-inner">
     <div>
-      <div class="footer-brand">MAHARAJ // AI_SYSTEMS</div>
-      <div class="footer-copy">©2025 MAHARAJ // SYSTEM_REF: 004</div>
+      <div class="footer-brand">Maharaj Systems</div>
+      <div class="footer-copy">© 2025 · AI · Automation · Data Pipelines</div>
     </div>
     <div class="footer-links">
-      <a href="projects.html">PROJECTS</a>
-      <a href="demo.html">DEMO</a>
-      <a href="index.html#contact">CONTACT</a>
-    </div>
-    <div class="footer-icons">
-      <span class="msym">terminal</span>
-      <span class="msym">code</span>
-      <span class="msym">hub</span>
+      <a href="projects.html">Projects</a>
+      <a href="demo.html">Demo</a>
+      <a href="index.html#contact">Contact</a>
     </div>
   </div>
 </footer>

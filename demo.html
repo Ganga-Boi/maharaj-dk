@@ -3,134 +3,128 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Event Parser Demo — Maharaj</title>
-  <meta name="description" content="Live demo: paste event text and extract structured JSON using AI parsing."/>
+  <title>Demo — Maharaj Systems</title>
+  <meta name="description" content="Paste event text and get structured JSON back. Live demo of the AI Event Extractor."/>
   <link rel="stylesheet" href="styles.css"/>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23131313'/><rect x='6' y='14' width='20' height='4' fill='%23ff571a'/><rect x='14' y='6' width='4' height='20' fill='%23ff571a'/></svg>"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23fafaf9'/><text x='6' y='22' font-size='18' font-family='serif' fill='%23d4500a'>M</text></svg>"/>
 </head>
 <body>
 
-<header class="noise-container">
-  <a class="nav-brand" href="index.html">
-    <span class="msym">terminal</span>
-    MAHARAJ // AI_SYSTEMS
-  </a>
+<nav>
+  <a class="nav-brand" href="index.html">Maharaj <span>Systems</span></a>
   <button class="nav-toggle" aria-label="Toggle menu">
     <span></span><span></span><span></span>
   </button>
   <ul class="nav-links">
-    <li><a href="index.html">HOME</a></li>
-    <li><a href="projects.html">PROJECTS</a></li>
-    <li><a href="demo.html" class="active">DEMO</a></li>
-    <li><a href="index.html#contact">CONTACT</a></li>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="demo.html" class="active">Demo</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
   </ul>
-  <a href="index.html#contact" class="btn-nav">CONTACT_DEV</a>
-</header>
+  <a href="index.html#contact" class="btn-nav">Contact</a>
+</nav>
 
 <main>
 
-  <div class="page-header noise-container">
-    <p class="label-caps label-orange" style="margin-bottom:.6rem">LIVE_DEMO — AI_EVENT_EXTRACTOR</p>
-    <h1>Paste Text.<br>Get Structure.</h1>
-    <p>Paste any event listing. The parser extracts fields and returns validated JSON.</p>
+  <div class="page-header">
+    <p class="section-label" style="margin-bottom:.6rem;">Live demo — AI Event Extractor</p>
+    <h1><strong>Paste text.</strong><br>Get structure.</h1>
+    <p>Paste a Facebook event, flyer text, or any message about an event. The parser extracts the relevant fields and returns validated JSON.</p>
   </div>
 
-  <div class="demo-chips-row">
-    <div class="demo-chips-label">// LOAD_EXAMPLE</div>
+  <div class="demo-intro">
+    <p class="demo-helper">Load an example or paste your own text:</p>
     <div class="demo-chips">
-      <button class="demo-chip">SALSA_NIGHT</button>
-      <button class="demo-chip">BACHATA_WORKSHOP</button>
-      <button class="demo-chip">KIZOMBA_SOCIAL</button>
+      <button class="demo-chip">Salsa Night</button>
+      <button class="demo-chip">Bachata Workshop</button>
+      <button class="demo-chip">Kizomba Social</button>
     </div>
   </div>
 
   <div class="demo-grid">
 
     <div class="demo-panel">
-      <div class="demo-head">
-        <span class="demo-head-title">// INPUT — RAW_EVENT_TEXT</span>
-        <div class="demo-dot"></div>
+      <div class="demo-panel-head">
+        <span class="demo-panel-title">Input — raw text</span>
       </div>
-      <div class="demo-body">
-        <textarea id="input" placeholder="// paste event text here...
+      <div class="demo-panel-body">
+        <textarea id="input" placeholder="Paste event text here...
 
-EXAMPLE:
+Example:
 Salsa Night at Club Tropicana
 Friday, May 9th 2025 — Doors at 20:00
 Vesterbrogade 12, Copenhagen
 Entry: 80 DKK"></textarea>
       </div>
-      <div class="demo-foot">
-        <span class="demo-hint">// ANY_FORMAT_ACCEPTED</span>
-        <button class="btn-process" id="processBtn">PROCESS</button>
+      <div class="demo-panel-foot">
+        <span class="demo-hint">Any format works</span>
+        <button class="btn-process" id="processBtn">Process</button>
       </div>
     </div>
 
     <div class="demo-panel">
-      <div class="demo-head">
-        <span class="demo-head-title">// OUTPUT — STRUCTURED_JSON</span>
-        <div class="demo-dot" id="demoDot"></div>
+      <div class="demo-panel-head">
+        <span class="demo-panel-title">Output — structured JSON</span>
       </div>
-      <div class="demo-body">
-        <div id="output"><span style="color:#252525;font-style:italic">// AWAITING_INPUT...</span></div>
+      <div class="demo-panel-body">
+        <div id="output"><span style="color:var(--text-3);font-style:italic;">// Paste text and click Process</span></div>
       </div>
       <div class="demo-status-bar">
-        <span class="demo-status-txt ready" id="demoStatus">SYSTEM_READY // paste event text and click PROCESS</span>
+        <span class="demo-status-txt" id="demoStatus">Ready</span>
       </div>
     </div>
 
   </div>
 
+  <!-- HOW IT WORKS -->
   <section class="how-section">
-    <p class="label-caps label-orange" style="margin-bottom:.5rem">PIPELINE_OVERVIEW</p>
-    <h2 class="section-heading" style="margin-bottom:2rem">How It Works</h2>
-    <div class="services-grid">
-      <div class="svc-card fade-in">
-        <div class="svc-num">// STEP_01</div>
-        <div class="svc-title">Tokenization</div>
-        <p class="svc-desc">Raw text is split into candidate segments. Line breaks, punctuation, and structural hints guide field boundaries.</p>
-      </div>
-      <div class="svc-card fade-in">
-        <div class="svc-num">// STEP_02</div>
-        <div class="svc-title">Entity Resolution</div>
-        <p class="svc-desc">Pattern matching and NLP extract date, time, venue, and price from unstructured content across languages.</p>
-      </div>
-      <div class="svc-card fade-in">
-        <div class="svc-num">// STEP_03</div>
-        <div class="svc-title">Validation + Scoring</div>
-        <p class="svc-desc">Extracted fields are scored for confidence. Output is typed JSON — ready for downstream systems and pipelines.</p>
+    <div class="section">
+      <p class="section-label">How it works</p>
+      <h2 class="section-title" style="margin-bottom:2rem;">Three steps from text to data</h2>
+      <div class="services-grid">
+        <div class="service-card fade-in">
+          <div class="service-number">01</div>
+          <div class="service-title">Parse</div>
+          <p class="service-desc">The input text is broken into segments. Line breaks and punctuation help identify where fields begin and end.</p>
+        </div>
+        <div class="service-card fade-in">
+          <div class="service-number">02</div>
+          <div class="service-title">Extract</div>
+          <p class="service-desc">Pattern matching identifies dates, times, venues, prices, and event types from unstructured content.</p>
+        </div>
+        <div class="service-card fade-in">
+          <div class="service-number">03</div>
+          <div class="service-title">Validate</div>
+          <p class="service-desc">Each field is typed and scored for confidence. The result is clean JSON ready to use in any system.</p>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- CONTACT -->
   <section class="contact-section fade-in">
     <div>
-      <p class="label-caps label-orange">CONTACT_DEV</p>
-      <h2 class="contact-h2">Want this in<br>your pipeline?</h2>
+      <h2 class="contact-title">Want this in your pipeline?</h2>
+      <p class="contact-sub">Available for freelance and collaboration.</p>
     </div>
-    <div style="text-align:right">
+    <div>
       <a href="mailto:allan@maharaj.dk" class="contact-email">allan@maharaj.dk</a>
-      <p class="label-caps label-dark">COPENHAGEN, DENMARK</p>
+      <p class="contact-loc">Copenhagen, Denmark</p>
     </div>
   </section>
 
 </main>
 
-<footer class="noise-container">
+<footer>
   <div class="footer-inner">
     <div>
-      <div class="footer-brand">MAHARAJ // AI_SYSTEMS</div>
-      <div class="footer-copy">©2025 MAHARAJ // SYSTEM_REF: 004</div>
+      <div class="footer-brand">Maharaj Systems</div>
+      <div class="footer-copy">© 2025 · AI · Automation · Data Pipelines</div>
     </div>
     <div class="footer-links">
-      <a href="projects.html">PROJECTS</a>
-      <a href="demo.html">DEMO</a>
-      <a href="index.html#contact">CONTACT</a>
-    </div>
-    <div class="footer-icons">
-      <span class="msym">terminal</span>
-      <span class="msym">code</span>
-      <span class="msym">hub</span>
+      <a href="projects.html">Projects</a>
+      <a href="demo.html">Demo</a>
+      <a href="index.html#contact">Contact</a>
     </div>
   </div>
 </footer>

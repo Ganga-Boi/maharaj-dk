@@ -18,12 +18,12 @@
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
       if (e.isIntersecting) {
-        e.target.style.transitionDelay = (i * 0.07) + 's';
+        e.target.style.transitionDelay = (i * 0.06) + 's';
         e.target.classList.add('visible');
         io.unobserve(e.target);
       }
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
   document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
 })();
 
@@ -33,7 +33,6 @@
   const outputEl = document.getElementById('output');
   const btn      = document.getElementById('processBtn');
   const statusEl = document.getElementById('demoStatus');
-  const dotEl    = document.getElementById('demoDot');
 
   if (!inputEl || !outputEl || !btn) return;
 
@@ -49,9 +48,11 @@
     });
   });
 
-  function setStatus(state, txt) {
-    if (statusEl) { statusEl.className = 'demo-status-txt ' + state; statusEl.textContent = txt; }
-    if (dotEl)    { dotEl.className = 'demo-dot' + (state !== 'ready' ? ' on' : ''); }
+  function setStatus(txt, done) {
+    if (statusEl) {
+      statusEl.className = 'demo-status-txt' + (done ? ' done' : '');
+      statusEl.textContent = txt;
+    }
   }
 
   function highlight(json) {
@@ -59,18 +60,18 @@
       /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?|null)/g,
       m => {
         let c = 'json-number';
-        if (/^"/.test(m))             c = /:$/.test(m) ? 'json-key' : 'json-string';
+        if (/^"/.test(m))              c = /:$/.test(m) ? 'json-key' : 'json-string';
         else if (/true|false/.test(m)) c = 'json-bool';
-        else if (/null/.test(m))      c = 'json-null';
+        else if (/null/.test(m))       c = 'json-null';
         return `<span class="${c}">${m}</span>`;
       }
     );
   }
 
   function parseEvent(text) {
-    const lines   = text.split('\n').map(l => l.trim()).filter(Boolean);
-    const combo   = lines.join(' ');
-    const title   = lines[0] || null;
+    const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+    const combo = lines.join(' ');
+    const title = lines[0] || null;
 
     const datePatterns = [
       /(\d{1,2}(?:st|nd|rd|th)?\s+(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+\d{4})/i,
@@ -96,11 +97,11 @@
     const recM = combo.match(/every\s+(last\s+)?\w+/i) || combo.match(/weekly|monthly/i);
 
     const tags = [];
-    if (dance_style) tags.push(dance_style);
+    if (dance_style)                      tags.push(dance_style);
     tags.push(event_type);
-    if (prM && /free/i.test(prM[0]))     tags.push('free-entry');
-    if (/live band/i.test(combo))         tags.push('live-music');
-    if (/\bDJ\b/i.test(combo))           tags.push('dj-set');
+    if (prM && /free/i.test(prM[0]))      tags.push('free-entry');
+    if (/live band/i.test(combo))          tags.push('live-music');
+    if (/\bDJ\b/i.test(combo))            tags.push('dj-set');
 
     let score = 0;
     if (title) score += 20; if (date) score += 25; if (timeM) score += 15;
@@ -120,39 +121,34 @@
       price:      prM  ? prM[0].trim()  : null,
       recurrence: recM ? recM[0]        : null,
       tags,
-      confidence: score + '%',
-      raw_chars:  text.length
+      confidence: score + '%'
     };
   }
 
   btn.addEventListener('click', async () => {
     const text = inputEl.value.trim();
     if (!text) {
-      outputEl.innerHTML = '<span style="color:#252525;font-style:italic">// NO_INPUT — paste event text to parse</span>';
+      outputEl.innerHTML = '<span style="color:var(--text-3);font-style:italic">// No input — paste some event text first</span>';
       return;
     }
 
     btn.disabled = true;
-    btn.innerHTML = '<span class="loader"></span> PROCESSING';
-    setStatus('processing', 'INIT_PARSER // tokenizing input...');
-    outputEl.innerHTML = '<span style="color:#252525">// running extraction pipeline...</span>';
+    btn.innerHTML = '<span class="loader"></span> Processing';
+    setStatus('Parsing input...');
+    outputEl.innerHTML = '<span style="color:var(--text-3);font-style:italic">// Extracting fields...</span>';
 
-    await new Promise(r => setTimeout(r, 380));
-    setStatus('processing', 'RESOLVING_ENTITIES // date · time · venue...');
-    outputEl.innerHTML = '<span style="color:#252525">// resolving entities...</span>';
+    await new Promise(r => setTimeout(r, 400));
+    setStatus('Resolving entities...');
 
-    await new Promise(r => setTimeout(r, 320));
-    setStatus('processing', 'VALIDATING_FIELDS // scoring confidence...');
-
-    await new Promise(r => setTimeout(r, 260));
+    await new Promise(r => setTimeout(r, 350));
 
     const result = parseEvent(text);
     outputEl.innerHTML = highlight(JSON.stringify(result, null, 2));
 
     btn.disabled = false;
-    btn.textContent = 'PROCESS';
-    setStatus('done', 'EXTRACTION_COMPLETE // confidence: ' + result.confidence);
+    btn.textContent = 'Process';
+    setStatus('Done — ' + result.confidence + ' confidence', true);
   });
 
-  setStatus('ready', 'SYSTEM_READY // paste event text and click PROCESS');
+  setStatus('Ready');
 })();
