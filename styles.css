@@ -58,6 +58,14 @@ nav {
   text-decoration: none;
 }
 
+.nav-logo-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  filter: invert(1);
+  opacity: 0.92;
+}
+
 .nav-logo-divider {
   width: 1px;
   height: 32px;
