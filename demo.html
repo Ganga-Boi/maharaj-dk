@@ -4,14 +4,27 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Demo — Maharaj Systems</title>
-  <meta name="description" content="Paste event text and get structured JSON back. Live demo of the AI Event Extractor."/>
+  <meta name="description" content="Paste event text and get structured JSON. Live demo of the AI Event Extractor."/>
   <link rel="stylesheet" href="styles.css"/>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23fafaf9'/><text x='6' y='22' font-size='18' font-family='serif' fill='%23d4500a'>M</text></svg>"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231a1a1a'/><rect x='6' y='8' width='8' height='16' rx='1' fill='%23e05520'/><rect x='18' y='8' width='8' height='16' rx='1' fill='%23e05520'/></svg>"/>
 </head>
 <body>
 
 <nav>
-  <a class="nav-brand" href="index.html">Maharaj <span>Systems</span></a>
+  <a class="nav-logo" href="index.html">
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="14" height="6" rx="1" fill="#f0ede8"/>
+      <rect x="2" y="10" width="14" height="6" rx="1" fill="#f0ede8"/>
+      <rect x="20" y="2" width="14" height="6" rx="1" fill="#f0ede8"/>
+      <rect x="2" y="18" width="32" height="6" rx="1" fill="#f0ede8"/>
+      <rect x="2" y="26" width="32" height="6" rx="1" fill="#f0ede8"/>
+    </svg>
+    <div class="nav-logo-divider"></div>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Maharaj Systems</span>
+      <span class="nav-logo-tag">AI · Automation · Data Pipelines</span>
+    </div>
+  </a>
   <button class="nav-toggle" aria-label="Toggle menu">
     <span></span><span></span><span></span>
   </button>
@@ -28,103 +41,98 @@
 
   <div class="page-header">
     <p class="section-label" style="margin-bottom:.6rem;">Live demo — AI Event Extractor</p>
-    <h1><strong>Paste text.</strong><br>Get structure.</h1>
-    <p>Paste a Facebook event, flyer text, or any message about an event. The parser extracts the relevant fields and returns validated JSON.</p>
+    <h1>Paste text.<br>Get structure.</h1>
+    <p>Paste a Facebook event, flyer text, or message. The parser extracts the relevant fields and returns validated JSON.</p>
   </div>
 
-  <div class="demo-intro">
-    <p class="demo-helper">Load an example or paste your own text:</p>
-    <div class="demo-chips">
+  <div class="section" style="padding-bottom:0;">
+    <div class="demo-chips-row">
       <button class="demo-chip">Salsa Night</button>
       <button class="demo-chip">Bachata Workshop</button>
       <button class="demo-chip">Kizomba Social</button>
     </div>
-  </div>
-
-  <div class="demo-grid">
-
-    <div class="demo-panel">
-      <div class="demo-panel-head">
-        <span class="demo-panel-title">Input — raw text</span>
-      </div>
-      <div class="demo-panel-body">
-        <textarea id="input" placeholder="Paste event text here...
+    <div class="demo-page-grid">
+      <div class="demo-card">
+        <div class="demo-card-header">
+          <span class="demo-card-title">Input — raw text</span>
+        </div>
+        <div class="demo-card-body">
+          <textarea class="demo-ta" id="input" placeholder="Paste event text here...
 
 Example:
 Salsa Night at Club Tropicana
 Friday, May 9th 2025 — Doors at 20:00
 Vesterbrogade 12, Copenhagen
 Entry: 80 DKK"></textarea>
+        </div>
+        <div class="demo-card-footer">
+          <span class="demo-hint">Any format works</span>
+          <button class="btn-process" id="processBtn">Process</button>
+        </div>
       </div>
-      <div class="demo-panel-foot">
-        <span class="demo-hint">Any format works</span>
-        <button class="btn-process" id="processBtn">Process</button>
+
+      <div class="demo-card">
+        <div class="demo-card-header">
+          <span class="demo-card-title">Output — structured JSON</span>
+        </div>
+        <div class="demo-card-body">
+          <div class="demo-output" id="output"><span style="color:var(--text-3);font-style:italic;">Paste text and click Process</span></div>
+        </div>
+        <div class="demo-status-bar">
+          <span class="demo-status-txt" id="demoStatus">Ready</span>
+        </div>
       </div>
     </div>
-
-    <div class="demo-panel">
-      <div class="demo-panel-head">
-        <span class="demo-panel-title">Output — structured JSON</span>
-      </div>
-      <div class="demo-panel-body">
-        <div id="output"><span style="color:var(--text-3);font-style:italic;">// Paste text and click Process</span></div>
-      </div>
-      <div class="demo-status-bar">
-        <span class="demo-status-txt" id="demoStatus">Ready</span>
-      </div>
-    </div>
-
   </div>
 
   <!-- HOW IT WORKS -->
-  <section class="how-section">
-    <div class="section">
+  <div class="services-wrap" style="margin-top:3rem;">
+    <div class="services-inner">
       <p class="section-label">How it works</p>
-      <h2 class="section-title" style="margin-bottom:2rem;">Three steps from text to data</h2>
+      <h2 class="section-title">Three steps from text to data</h2>
       <div class="services-grid">
-        <div class="service-card fade-in">
-          <div class="service-number">01</div>
-          <div class="service-title">Parse</div>
-          <p class="service-desc">The input text is broken into segments. Line breaks and punctuation help identify where fields begin and end.</p>
+        <div class="svc-card fade-in">
+          <div class="svc-num">01</div>
+          <div class="svc-title">Parse</div>
+          <p class="svc-desc">The input text is broken into segments. Line breaks and punctuation help identify where fields begin and end.</p>
         </div>
-        <div class="service-card fade-in">
-          <div class="service-number">02</div>
-          <div class="service-title">Extract</div>
-          <p class="service-desc">Pattern matching identifies dates, times, venues, prices, and event types from unstructured content.</p>
+        <div class="svc-card fade-in">
+          <div class="svc-num">02</div>
+          <div class="svc-title">Extract</div>
+          <p class="svc-desc">Pattern matching identifies dates, times, venues, prices, and event types from unstructured content.</p>
         </div>
-        <div class="service-card fade-in">
-          <div class="service-number">03</div>
-          <div class="service-title">Validate</div>
-          <p class="service-desc">Each field is typed and scored for confidence. The result is clean JSON ready to use in any system.</p>
+        <div class="svc-card fade-in">
+          <div class="svc-num">03</div>
+          <div class="svc-title">Validate</div>
+          <p class="svc-desc">Each field is typed and scored for confidence. The result is clean JSON ready to use in any system.</p>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- CONTACT -->
-  <section class="contact-section fade-in">
-    <div>
-      <h2 class="contact-title">Want this in your pipeline?</h2>
-      <p class="contact-sub">Available for freelance and collaboration.</p>
+  <div class="cta-banner">
+    <div class="cta-inner">
+      <div class="cta-text">
+        <h2>Want this in your pipeline?</h2>
+        <p>Available for freelance and collaboration.</p>
+      </div>
+      <a href="mailto:allan@maharaj.dk" class="btn-primary">Get in touch →</a>
     </div>
-    <div>
-      <a href="mailto:allan@maharaj.dk" class="contact-email">allan@maharaj.dk</a>
-      <p class="contact-loc">Copenhagen, Denmark</p>
-    </div>
-  </section>
+  </div>
 
 </main>
 
 <footer>
   <div class="footer-inner">
-    <div>
-      <div class="footer-brand">Maharaj Systems</div>
-      <div class="footer-copy">© 2025 · AI · Automation · Data Pipelines</div>
-    </div>
+    <div class="footer-copy">© 2025 Maharaj Systems</div>
     <div class="footer-links">
       <a href="projects.html">Projects</a>
       <a href="demo.html">Demo</a>
       <a href="index.html#contact">Contact</a>
+    </div>
+    <div class="footer-social">
+      <a href="#">GitHub</a>
+      <a href="#">LinkedIn</a>
     </div>
   </div>
 </footer>

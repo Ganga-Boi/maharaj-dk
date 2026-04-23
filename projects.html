@@ -4,14 +4,27 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Projects — Maharaj Systems</title>
-  <meta name="description" content="Real systems built with Playwright, Claude API, Google Apps Script, and JavaScript."/>
+  <meta name="description" content="Three working systems built with Playwright, Claude API, Google Apps Script, and JavaScript."/>
   <link rel="stylesheet" href="styles.css"/>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23fafaf9'/><text x='6' y='22' font-size='18' font-family='serif' fill='%23d4500a'>M</text></svg>"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231a1a1a'/><rect x='6' y='8' width='8' height='16' rx='1' fill='%23e05520'/><rect x='18' y='8' width='8' height='16' rx='1' fill='%23e05520'/></svg>"/>
 </head>
 <body>
 
 <nav>
-  <a class="nav-brand" href="index.html">Maharaj <span>Systems</span></a>
+  <a class="nav-logo" href="index.html">
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="14" height="6" rx="1" fill="#f0ede8"/>
+      <rect x="2" y="10" width="14" height="6" rx="1" fill="#f0ede8"/>
+      <rect x="20" y="2" width="14" height="6" rx="1" fill="#f0ede8"/>
+      <rect x="2" y="18" width="32" height="6" rx="1" fill="#f0ede8"/>
+      <rect x="2" y="26" width="32" height="6" rx="1" fill="#f0ede8"/>
+    </svg>
+    <div class="nav-logo-divider"></div>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Maharaj Systems</span>
+      <span class="nav-logo-tag">AI · Automation · Data Pipelines</span>
+    </div>
+  </a>
   <button class="nav-toggle" aria-label="Toggle menu">
     <span></span><span></span><span></span>
   </button>
@@ -21,32 +34,31 @@
     <li><a href="demo.html">Demo</a></li>
     <li><a href="index.html#contact">Contact</a></li>
   </ul>
-  <a href="demo.html" class="btn-nav">View Demo</a>
+  <a href="demo.html" class="btn-nav">View Demo →</a>
 </nav>
 
 <main>
 
   <div class="page-header">
     <p class="section-label" style="margin-bottom:.6rem;">Projects</p>
-    <h1><strong>Real systems.</strong><br>Real outputs.</h1>
-    <p>Each project solves a concrete problem and runs on real infrastructure — not prototypes or demos.</p>
+    <h1>Three working systems.<br>Real outputs.</h1>
+    <p>Each project solves a concrete problem and runs on real infrastructure.</p>
   </div>
 
   <div class="projects-list">
 
-    <!-- PROJECT 01 -->
     <div class="project-card fade-in" id="dancemap">
       <div>
         <div class="project-index">01</div>
         <h2 class="project-title">DanceMap CPH</h2>
-        <p class="project-desc">Copenhagen's dance events are scattered across Facebook, Meetup, and private pages. This system scrapes all of them daily, parses the unstructured content with AI, removes duplicates, and outputs a clean, unified dataset.</p>
+        <p class="project-desc">Copenhagen's dance events are scattered across Facebook, Meetup, and private pages. This system scrapes all of them daily, parses the content with AI, removes duplicates, and outputs a clean, unified dataset.</p>
         <ul class="project-bullets">
           <li>Scrapes multiple event sources on a daily schedule</li>
           <li>AI parsing extracts date, time, venue, and price from raw text</li>
-          <li>Fuzzy deduplication matches events that appear on multiple sources</li>
+          <li>Fuzzy deduplication matches events appearing on multiple sources</li>
           <li>Structured output stored in Google Sheets for downstream use</li>
         </ul>
-        <div class="tags">
+        <div class="tags-row">
           <span class="tag">Playwright</span>
           <span class="tag">Claude API</span>
           <span class="tag">Google Apps Script</span>
@@ -55,47 +67,45 @@
         </div>
       </div>
       <div class="project-actions">
-        <a href="demo.html" class="btn-accent">Try the parser</a>
+        <a href="demo.html" class="btn-primary" style="font-size:.78rem;padding:.5rem .9rem;">Try Demo</a>
         <a href="index.html#contact" class="btn-outline">Get in touch</a>
       </div>
     </div>
 
-    <!-- PROJECT 02 -->
     <div class="project-card fade-in" id="extractor">
       <div>
         <div class="project-index">02</div>
         <h2 class="project-title">AI Event Extractor</h2>
-        <p class="project-desc">A parser that takes raw, unstructured event text — from Facebook posts, flyers, or messages — and returns clean, validated JSON with all relevant fields extracted and typed.</p>
+        <p class="project-desc">Takes raw, unstructured event text — from Facebook posts, flyers, or messages — and returns clean, validated JSON with all relevant fields extracted and typed.</p>
         <ul class="project-bullets">
-          <li>Accepts any free-form text input — no formatting required</li>
-          <li>Extracts: title, date, time, location, price, event type, and dance style</li>
-          <li>Returns a confidence score per extraction</li>
+          <li>Accepts any free-form text — no formatting required</li>
+          <li>Extracts title, date, time, location, price, event type, and dance style</li>
+          <li>Returns a confidence score with each extraction</li>
           <li>Handles both Danish and English text</li>
         </ul>
-        <div class="tags">
+        <div class="tags-row">
           <span class="tag">Claude API</span>
           <span class="tag">JavaScript</span>
           <span class="tag">JSON Schema</span>
         </div>
       </div>
       <div class="project-actions">
-        <a href="demo.html" class="btn-primary" style="font-size:.8rem;padding:.55rem 1rem;">Live demo</a>
+        <a href="demo.html" class="btn-primary" style="font-size:.78rem;padding:.5rem .9rem;">Try Demo</a>
       </div>
     </div>
 
-    <!-- PROJECT 03 -->
     <div class="project-card fade-in" id="scraper">
       <div>
         <div class="project-index">03</div>
         <h2 class="project-title">Scraper + Dedup System</h2>
-        <p class="project-desc">A modular scraping framework with built-in deduplication. Designed for collecting entity-based data from multiple sources without creating duplicate records.</p>
+        <p class="project-desc">A modular scraping framework with built-in deduplication. Built for collecting entity-based data from multiple sources without creating duplicate records.</p>
         <ul class="project-bullets">
-          <li>Separate scraper modules per source — easy to add new ones</li>
+          <li>Separate scraper module per source — straightforward to extend</li>
           <li>Deduplication using fuzzy matching on title, date, and location</li>
           <li>Source attribution and timestamps on every record</li>
-          <li>Configurable without touching the core code</li>
+          <li>Configurable without modifying the core code</li>
         </ul>
-        <div class="tags">
+        <div class="tags-row">
           <span class="tag">Playwright</span>
           <span class="tag">Google Apps Script</span>
           <span class="tag">JavaScript</span>
@@ -108,30 +118,29 @@
 
   </div>
 
-  <!-- CONTACT -->
-  <section id="contact" class="contact-section fade-in">
-    <div>
-      <h2 class="contact-title">Have a use case?</h2>
-      <p class="contact-sub">Available for freelance and collaboration.</p>
+  <div class="cta-banner" style="margin-top:0;">
+    <div class="cta-inner">
+      <div class="cta-text">
+        <h2>Let's build something that works.</h2>
+        <p>Have a project in mind? Let's talk.</p>
+      </div>
+      <a href="mailto:allan@maharaj.dk" class="btn-primary">Get in touch →</a>
     </div>
-    <div>
-      <a href="mailto:allan@maharaj.dk" class="contact-email">allan@maharaj.dk</a>
-      <p class="contact-loc">Copenhagen, Denmark</p>
-    </div>
-  </section>
+  </div>
 
 </main>
 
 <footer>
   <div class="footer-inner">
-    <div>
-      <div class="footer-brand">Maharaj Systems</div>
-      <div class="footer-copy">© 2025 · AI · Automation · Data Pipelines</div>
-    </div>
+    <div class="footer-copy">© 2025 Maharaj Systems</div>
     <div class="footer-links">
       <a href="projects.html">Projects</a>
       <a href="demo.html">Demo</a>
       <a href="index.html#contact">Contact</a>
+    </div>
+    <div class="footer-social">
+      <a href="#">GitHub</a>
+      <a href="#">LinkedIn</a>
     </div>
   </div>
 </footer>

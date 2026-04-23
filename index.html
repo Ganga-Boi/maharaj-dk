@@ -4,17 +4,31 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Maharaj Systems — AI · Automation · Data Pipelines</title>
-  <meta name="description" content="I build automation, data pipelines, and AI-powered tools that turn messy input into structured, usable systems."/>
+  <meta name="description" content="I build automation, data pipelines, and AI-powered tools that turn messy input into structured, usable data."/>
   <meta property="og:title" content="Maharaj Systems"/>
-  <meta property="og:description" content="AI · Automation · Data Pipelines"/>
   <meta property="og:url" content="https://maharaj.dk"/>
   <link rel="stylesheet" href="styles.css"/>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23fafaf9'/><text x='6' y='22' font-size='18' font-family='serif' fill='%23d4500a'>M</text></svg>"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231a1a1a'/><rect x='6' y='8' width='8' height='16' rx='1' fill='%23e05520'/><rect x='18' y='8' width='8' height='16' rx='1' fill='%23e05520'/></svg>"/>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <a class="nav-brand" href="index.html">Maharaj <span>Systems</span></a>
+  <a class="nav-logo" href="index.html">
+    <!-- MS Logo SVG -->
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="14" height="6" rx="1" fill="#f0ede8"/>
+      <rect x="2" y="10" width="14" height="6" rx="1" fill="#f0ede8"/>
+      <rect x="20" y="2" width="14" height="6" rx="1" fill="#f0ede8"/>
+      <rect x="2" y="18" width="32" height="6" rx="1" fill="#f0ede8"/>
+      <rect x="2" y="26" width="32" height="6" rx="1" fill="#f0ede8"/>
+    </svg>
+    <div class="nav-logo-divider"></div>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Maharaj Systems</span>
+      <span class="nav-logo-tag">AI · Automation · Data Pipelines</span>
+    </div>
+  </a>
   <button class="nav-toggle" aria-label="Toggle menu">
     <span></span><span></span><span></span>
   </button>
@@ -24,122 +38,237 @@
     <li><a href="demo.html">Demo</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="demo.html" class="btn-nav">View Demo</a>
+  <a href="demo.html" class="btn-nav">View Demo →</a>
 </nav>
 
 <main>
 
   <!-- HERO -->
-  <div class="hero">
-    <p class="hero-label">AI · Automation · Data Pipelines</p>
-    <h1><strong>AI Systems That Solve</strong><br>Real Problems</h1>
-    <p class="hero-sub">I build automation, data pipelines, and AI-powered tools that turn messy input into structured, usable systems.</p>
-    <p class="hero-proof">Built from real systems — not concepts.</p>
-    <div class="hero-actions">
-      <a href="projects.html" class="btn-primary">View Projects</a>
-      <a href="demo.html" class="btn-secondary">Try Demo</a>
+  <div class="hero-wrap">
+    <div class="hero-content">
+      <p class="hero-label">AI · Automation · Data Pipelines</p>
+      <h1>AI Systems That<br>Solve Real Problems</h1>
+      <p class="hero-sub">I build automation, data pipelines, and AI-powered tools that turn messy input into structured, usable data.</p>
+      <div class="hero-proof">
+        <div class="hero-proof-bar"></div>
+        <span class="hero-proof-text">Built from real systems — not concepts.</span>
+      </div>
+      <div class="hero-actions">
+        <a href="projects.html" class="btn-primary">View Projects →</a>
+        <a href="demo.html" class="btn-secondary">Try Demo →</a>
+      </div>
+    </div>
+
+    <!-- Pipeline graphic -->
+    <div class="hero-graphic">
+      <svg class="pipeline-svg" viewBox="0 0 480 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#e05520" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#e05520" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Background glow -->
+        <ellipse cx="300" cy="210" rx="180" ry="140" fill="url(#glow)"/>
+
+        <!-- Flow lines from left nodes to right -->
+        <path d="M 80 80 C 200 80 200 180 320 180" stroke="#e05520" stroke-width="1.5" stroke-opacity="0.7" fill="none"/>
+        <path d="M 80 140 C 200 140 200 185 320 185" stroke="#e05520" stroke-width="1.2" stroke-opacity="0.5" fill="none"/>
+        <path d="M 80 200 C 200 200 200 200 320 200" stroke="#a8a69f" stroke-width="1" stroke-opacity="0.35" fill="none"/>
+        <path d="M 80 260 C 200 260 200 215 320 215" stroke="#a8a69f" stroke-width="1" stroke-opacity="0.3" fill="none"/>
+        <path d="M 80 320 C 200 320 200 225 320 225" stroke="#a8a69f" stroke-width="0.8" stroke-opacity="0.25" fill="none"/>
+
+        <!-- Extra subtle lines -->
+        <path d="M 80 110 C 200 110 200 182 320 182" stroke="#e05520" stroke-width="0.7" stroke-opacity="0.35" fill="none"/>
+        <path d="M 80 170 C 200 170 200 192 320 192" stroke="#a8a69f" stroke-width="0.7" stroke-opacity="0.22" fill="none"/>
+        <path d="M 80 230 C 200 230 200 208 320 208" stroke="#a8a69f" stroke-width="0.7" stroke-opacity="0.2" fill="none"/>
+        <path d="M 80 290 C 200 290 200 218 320 218" stroke="#a8a69f" stroke-width="0.6" stroke-opacity="0.15" fill="none"/>
+
+        <!-- Left nodes (sources) -->
+        <circle cx="80" cy="80"  r="5" fill="#e05520"/>
+        <circle cx="80" cy="140" r="4" fill="#e05520" fill-opacity="0.7"/>
+        <circle cx="80" cy="200" r="4" fill="#a8a69f" fill-opacity="0.5"/>
+        <circle cx="80" cy="260" r="3.5" fill="#a8a69f" fill-opacity="0.4"/>
+        <circle cx="80" cy="320" r="3" fill="#a8a69f" fill-opacity="0.3"/>
+
+        <!-- Source labels -->
+        <text x="96" y="84" font-family="DM Mono, monospace" font-size="10" fill="#a8a69f" fill-opacity="0.7">Facebook</text>
+        <text x="96" y="144" font-family="DM Mono, monospace" font-size="10" fill="#a8a69f" fill-opacity="0.6">Meetup</text>
+        <text x="96" y="204" font-family="DM Mono, monospace" font-size="10" fill="#a8a69f" fill-opacity="0.45">Instagram</text>
+        <text x="96" y="264" font-family="DM Mono, monospace" font-size="10" fill="#a8a69f" fill-opacity="0.35">Web</text>
+        <text x="96" y="324" font-family="DM Mono, monospace" font-size="10" fill="#a8a69f" fill-opacity="0.25">SMS / Email</text>
+
+        <!-- Right collector node -->
+        <circle cx="320" cy="200" r="12" fill="#e05520" fill-opacity="0.15" stroke="#e05520" stroke-width="1.5" stroke-opacity="0.6"/>
+        <circle cx="320" cy="200" r="5" fill="#e05520"/>
+
+        <!-- Output line -->
+        <path d="M 332 200 L 400 200" stroke="#e05520" stroke-width="1.5" stroke-opacity="0.7" stroke-dasharray="4 3"/>
+
+        <!-- Output box -->
+        <rect x="400" y="166" width="72" height="68" rx="3" fill="#2a2a2a" stroke="#e05520" stroke-width="1" stroke-opacity="0.5"/>
+        <text x="413" y="185" font-family="DM Mono, monospace" font-size="7.5" fill="#a8a69f">"title"</text>
+        <text x="413" y="198" font-family="DM Mono, monospace" font-size="7.5" fill="#a8a69f">"date"</text>
+        <text x="413" y="211" font-family="DM Mono, monospace" font-size="7.5" fill="#a8a69f">"venue"</text>
+        <text x="413" y="224" font-family="DM Mono, monospace" font-size="7.5" fill="#e05520">"price"</text>
+
+        <!-- Collector label -->
+        <text x="296" y="230" font-family="DM Mono, monospace" font-size="8" fill="#e05520" fill-opacity="0.8" text-anchor="middle">AI Parser</text>
+      </svg>
     </div>
   </div>
 
   <!-- WHAT I DO -->
-  <section class="services-section">
-    <div class="section">
+  <div class="services-wrap">
+    <div class="services-inner">
       <p class="section-label">What I do</p>
-      <h2 class="section-title">Three things, done well</h2>
+      <h2 class="section-title">Turn complex input<br>into reliable systems</h2>
       <div class="services-grid">
-        <div class="service-card fade-in">
-          <div class="service-number">01</div>
-          <div class="service-title">AI Automation</div>
-          <p class="service-desc">End-to-end pipelines that replace manual, repetitive work with scheduled, reliable processes.</p>
+        <div class="svc-card fade-in">
+          <div class="svc-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e05520" stroke-width="1.5" stroke-linecap="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+            </svg>
+          </div>
+          <div class="svc-num">01</div>
+          <div class="svc-title">AI Automation</div>
+          <p class="svc-desc">End-to-end pipelines that replace manual, repetitive work with scheduled, reliable processes.</p>
         </div>
-        <div class="service-card fade-in">
-          <div class="service-number">02</div>
-          <div class="service-title">Data Extraction</div>
-          <p class="service-desc">Scraping and parsing unstructured data from the web and turning it into clean, structured output.</p>
+        <div class="svc-card fade-in">
+          <div class="svc-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e05520" stroke-width="1.5" stroke-linecap="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </div>
+          <div class="svc-num">02</div>
+          <div class="svc-title">Data Extraction</div>
+          <p class="svc-desc">Scraping and parsing unstructured data from the web and turning it into clean, structured output.</p>
         </div>
-        <div class="service-card fade-in">
-          <div class="service-number">03</div>
-          <div class="service-title">System Integration</div>
-          <p class="service-desc">Connecting APIs, spreadsheets, and services into workflows that actually run without babysitting.</p>
+        <div class="svc-card fade-in">
+          <div class="svc-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e05520" stroke-width="1.5" stroke-linecap="round">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+            </svg>
+          </div>
+          <div class="svc-num">03</div>
+          <div class="svc-title">System Integration</div>
+          <p class="svc-desc">Connecting APIs, spreadsheets, and services into workflows that run reliably without manual intervention.</p>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- FEATURED PROJECT -->
-  <section class="featured-section">
-    <div class="section">
-      <p class="section-label">Featured project</p>
-      <h2 class="section-title">DanceMap CPH</h2>
-      <p class="section-sub">Copenhagen's dance scene is fragmented across Facebook, Meetup, and private event pages. DanceMap pulls it all together automatically.</p>
-
-      <div class="featured-card fade-in" style="margin-top:2rem;">
-        <div class="featured-body">
-          <p class="featured-tag">Scraping · AI parsing · Deduplication</p>
-          <h3 class="featured-title">From scattered posts to one clean feed</h3>
-          <p class="featured-desc">Every day, the system scrapes multiple sources, extracts event details from unstructured text, removes duplicates, and outputs a structured dataset of salsa, bachata, and kizomba events in Copenhagen.</p>
-          <ul class="featured-bullets">
-            <li>Aggregates dance events from multiple sources daily</li>
-            <li>Uses AI parsing to extract date, time, venue, and price from raw text</li>
-            <li>Deduplicates events that appear across multiple sources</li>
-            <li>Outputs structured data ready for display or further processing</li>
-          </ul>
-          <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
-            <a href="demo.html" class="btn-accent">Try the parser →</a>
-            <a href="projects.html" class="btn-outline">All projects</a>
-          </div>
-          <div class="tags">
-            <span class="tag">Playwright</span>
-            <span class="tag">Claude API</span>
-            <span class="tag">Google Sheets</span>
-            <span class="tag">JavaScript</span>
-          </div>
+  <!-- FEATURED PROJECT + LIVE DEMO -->
+  <div class="featured-wrap">
+    <div class="featured-inner">
+      <div class="featured-left fade-in">
+        <p class="featured-tag">Featured project</p>
+        <h2 class="featured-title">DanceMap<br>Parser</h2>
+        <p class="featured-desc">Extracts structured event data from Facebook events, flyers, and text using AI. Part of DanceMap CPH — a daily pipeline that aggregates Copenhagen dance events from multiple sources.</p>
+        <div class="featured-tags">
+          <span class="tag">Playwright</span>
+          <span class="tag">Claude API</span>
+          <span class="tag">Google Apps Script</span>
+          <span class="tag">Google Sheets</span>
+          <span class="tag">JavaScript</span>
         </div>
-        <div class="featured-sidebar">
-          <div>
-            <p class="sidebar-label">Stack</p>
-            <div class="sidebar-stack">
-              <div class="stack-item"><span class="stack-dot active"></span>Playwright</div>
-              <div class="stack-item"><span class="stack-dot active"></span>Claude API</div>
-              <div class="stack-item"><span class="stack-dot active"></span>Google Apps Script</div>
-              <div class="stack-item"><span class="stack-dot active"></span>Google Sheets</div>
-              <div class="stack-item"><span class="stack-dot active"></span>JavaScript</div>
+        <a href="projects.html#dancemap" class="btn-accent-outline">Open Project →</a>
+      </div>
+
+      <div class="featured-right fade-in">
+        <p style="font-size:.72rem;font-family:var(--font-m);color:var(--text-3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.75rem;">Try it live</p>
+        <div class="demo-chips-row">
+          <button class="demo-chip">Salsa Night</button>
+          <button class="demo-chip">Bachata Workshop</button>
+          <button class="demo-chip">Kizomba Social</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:.75rem;align-items:start;">
+          <div class="demo-card">
+            <div class="demo-card-header">
+              <span class="demo-card-title">Input</span>
+            </div>
+            <div class="demo-card-body">
+              <textarea class="demo-ta" id="input" placeholder="Paste a Facebook event, flyer text, or message..."></textarea>
+            </div>
+            <div class="demo-card-footer">
+              <span class="demo-hint">Any format</span>
+              <button class="btn-process" id="processBtn">Process</button>
             </div>
           </div>
-          <a href="projects.html#dancemap" class="btn-outline" style="width:100%;text-align:center;">View project details</a>
+          <div class="demo-arrow">→</div>
+          <div class="demo-card">
+            <div class="demo-card-header">
+              <span class="demo-card-title">Output (JSON)</span>
+            </div>
+            <div class="demo-card-body">
+              <div class="demo-output" id="output"><span style="color:var(--text-3);font-style:italic">// result</span></div>
+            </div>
+            <div class="demo-status-bar">
+              <span class="demo-status-txt" id="demoStatus">Ready</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- PROJECT PREVIEW -->
-  <section class="section fade-in" style="border-top:1px solid var(--border);">
-    <p class="section-label">All projects</p>
-    <h2 class="section-title" style="margin-bottom:2rem;">Three systems in production</h2>
-    <div style="display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface);">
-      <div style="padding:1.5rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;">
-        <div>
-          <div style="font-weight:500;margin-bottom:.25rem;">DanceMap CPH</div>
-          <div style="font-size:.875rem;color:var(--text-2);font-weight:300;">Aggregates Copenhagen dance events from multiple sources into one structured feed.</div>
+  <!-- WHY WORK WITH ME -->
+  <div class="why-wrap">
+    <div class="why-inner">
+      <p class="section-label">Why work with me?</p>
+      <div class="why-grid">
+        <div class="why-card fade-in">
+          <div class="why-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e05520" stroke-width="1.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="why-title">Real Systems</div>
+          <p class="why-desc">Everything I build is used, tested, and maintained.</p>
         </div>
-        <a href="projects.html#dancemap" class="btn-outline" style="flex-shrink:0;">View →</a>
-      </div>
-      <div style="padding:1.5rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;">
-        <div>
-          <div style="font-weight:500;margin-bottom:.25rem;">AI Event Extractor</div>
-          <div style="font-size:.875rem;color:var(--text-2);font-weight:300;">Extracts event data from unstructured text and outputs validated JSON.</div>
+        <div class="why-card fade-in">
+          <div class="why-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e05520" stroke-width="1.5" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <div class="why-title">Reliable Automation</div>
+          <p class="why-desc">Focus on results, not manual tasks.</p>
         </div>
-        <a href="demo.html" class="btn-outline" style="flex-shrink:0;">Try demo →</a>
-      </div>
-      <div style="padding:1.5rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;">
-        <div>
-          <div style="font-weight:500;margin-bottom:.25rem;">Scraper + Dedup System</div>
-          <div style="font-size:.875rem;color:var(--text-2);font-weight:300;">Modular scraping framework with fuzzy deduplication across sources.</div>
+        <div class="why-card fade-in">
+          <div class="why-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e05520" stroke-width="1.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="why-title">Clean & Maintainable</div>
+          <p class="why-desc">Well-structured code and transparent workflows.</p>
         </div>
-        <a href="projects.html#scraper" class="btn-outline" style="flex-shrink:0;">View →</a>
+        <div class="why-card fade-in">
+          <div class="why-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e05520" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="why-title">Focused Collaboration</div>
+          <p class="why-desc">Clear communication and solutions tailored to your needs.</p>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
+
+  <!-- CTA BANNER -->
+  <div class="cta-banner">
+    <div class="cta-inner">
+      <div class="cta-logo-area">
+        <svg width="32" height="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="14" height="6" rx="1" fill="#f0ede8"/>
+          <rect x="2" y="10" width="14" height="6" rx="1" fill="#f0ede8"/>
+          <rect x="20" y="2" width="14" height="6" rx="1" fill="#f0ede8"/>
+          <rect x="2" y="18" width="32" height="6" rx="1" fill="#f0ede8"/>
+          <rect x="2" y="26" width="32" height="6" rx="1" fill="#f0ede8"/>
+        </svg>
+        <div class="cta-text">
+          <h2>Let's build something that works.</h2>
+          <p>Have a project in mind? Let's talk.</p>
+        </div>
+      </div>
+      <a href="mailto:allan@maharaj.dk" class="btn-primary">Get in touch →</a>
+    </div>
+  </div>
 
   <!-- CONTACT -->
   <section id="contact" class="contact-section fade-in">
@@ -157,14 +286,15 @@
 
 <footer>
   <div class="footer-inner">
-    <div>
-      <div class="footer-brand">Maharaj Systems</div>
-      <div class="footer-copy">© 2025 · AI · Automation · Data Pipelines</div>
-    </div>
+    <div class="footer-copy">© 2025 Maharaj Systems</div>
     <div class="footer-links">
       <a href="projects.html">Projects</a>
       <a href="demo.html">Demo</a>
       <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-social">
+      <a href="#">GitHub</a>
+      <a href="#">LinkedIn</a>
     </div>
   </div>
 </footer>
