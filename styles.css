@@ -945,123 +945,110 @@ footer {
 ::-webkit-scrollbar-thumb { background: var(--bg-4); border-radius: 2px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
 
+
 /* ── FLOATING BOTTOM NAV (mobile only) ── */
-.bottom-nav {
-  display: none;
-}
+.bottom-nav { display: none; }
 
 @media (max-width: 768px) {
-  /* Hide hamburger toggle — no longer needed */
-  .nav-toggle { display: none; }
-  .nav-links, .btn-nav { display: none !important; }
+  .nav-toggle  { display: none; }
+  .nav-links,
+  .btn-nav     { display: none !important; }
 
-  /* Make top nav logo-only on mobile */
   nav {
     height: 60px;
-    justify-content: center;
-    border-bottom: none;
+    justify-content: flex-start;
+    border-bottom: 1px solid var(--border);
     background: rgba(20,20,20,0.95);
+    padding: 0 1.25rem;
   }
 
-  /* Bigger logo on mobile */
-  .nav-logo-img {
-    width: 48px;
-    height: 48px;
+  .nav-logo-img  { width: 40px; height: 40px; }
+  .nav-logo-name { font-size: 0.82rem; }
+  .nav-logo-tag  { font-size: 0.62rem; }
+
+  main {
+    padding-top: 60px;
+    padding-bottom: 100px;
   }
 
-  .nav-logo-name {
-    font-size: 0.85rem;
-  }
+  /* Buttons full width fix */
+  .hero-actions { flex-direction: column; gap: 0.6rem; }
+  .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
 
-  .nav-logo-tag {
-    font-size: 0.65rem;
-    color: var(--text-3);
-  }
-
-  /* Add padding to body so content clears bottom nav */
-  main { padding-bottom: 90px; }
-
-  /* Floating bottom nav */
+  /* Floating bottom pill nav */
   .bottom-nav {
     display: flex;
     position: fixed;
-    bottom: 20px;
+    bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 200;
-    background: rgba(30,30,30,0.92);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    z-index: 999;
+    background: rgba(28,28,28,0.94);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 40px;
-    padding: 8px 8px;
+    border-radius: 50px;
+    padding: 6px;
     gap: 2px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
+    width: auto;
+    max-width: calc(100vw - 32px);
   }
 
   .bottom-nav-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3px;
-    padding: 8px 18px;
-    border-radius: 32px;
+    gap: 2px;
+    padding: 8px 16px;
+    border-radius: 44px;
     text-decoration: none;
-    transition: background 0.2s;
-    min-width: 64px;
+    transition: background 0.18s;
+    flex: 1;
+    min-width: 56px;
   }
 
-  .bottom-nav-item:hover {
-    background: rgba(255,255,255,0.06);
-  }
+  .bottom-nav-item:active { opacity: 0.8; }
 
   .bottom-nav-item.active {
     background: var(--accent);
   }
 
-  .bottom-nav-item.active .bottom-nav-icon svg {
-    stroke: #fff;
-  }
-
-  .bottom-nav-item.active .bottom-nav-label {
-    color: #fff;
-  }
+  .bottom-nav-item.active .bottom-nav-icon svg { stroke: #fff; }
+  .bottom-nav-item.active .bottom-nav-label    { color: #fff; }
 
   .bottom-nav-icon {
-    width: 22px;
-    height: 22px;
+    width: 20px; height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .bottom-nav-icon svg {
-    width: 20px;
-    height: 20px;
+    width: 18px; height: 18px;
     stroke: var(--text-2);
-    transition: stroke 0.2s;
+    fill: none;
+    transition: stroke 0.18s;
   }
 
   .bottom-nav-label {
-    font-family: var(--font-s);
-    font-size: 0.6rem;
+    font-size: 0.58rem;
     font-weight: 500;
     color: var(--text-2);
-    letter-spacing: 0.03em;
-    transition: color 0.2s;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    transition: color 0.18s;
   }
 }
 
-/* Desktop — logo bigger */
+/* Desktop logo size */
 @media (min-width: 769px) {
-  .nav-logo-img {
-    width: 44px;
-    height: 44px;
-  }
-
-  nav {
-    height: 68px;
-  }
-
-  main { padding-top: 68px; }
+  .nav-logo-img { width: 44px; height: 44px; }
+  nav            { height: 68px; }
+  main           { padding-top: 68px; }
 }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--bg-4); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
