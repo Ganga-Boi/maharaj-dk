@@ -893,7 +893,11 @@ footer {
 }
 .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-/* ── RESPONSIVE ── */
+/* ═══════════════════════════════════════
+   RESPONSIVE & MOBILE
+═══════════════════════════════════════ */
+
+/* 900px breakpoint */
 @media (max-width: 900px) {
   .hero-wrap { grid-template-columns: 1fr; padding: 4rem 1.5rem 3rem; }
   .hero-graphic { display: none; }
@@ -901,7 +905,7 @@ footer {
   .why-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* ── DESKTOP LOGO ── */
+/* ── Desktop logo ── */
 .nav-logo-img {
   width: 44px;
   height: 44px;
@@ -910,118 +914,134 @@ footer {
   opacity: 1;
 }
 
-/* ── HERO LOGO HEADER — desktop hidden ── */
+/* ── Elements hidden on desktop ── */
 .hero-logo-header { display: none; }
 .bottom-nav       { display: none; }
 
-/* ── MOBILE ── */
+/* ═══════════════════════════════════════
+   MOBILE — max 768px
+═══════════════════════════════════════ */
 @media (max-width: 768px) {
 
-  /* Top nav — logo only, minimal */
+  /* ── Top navbar: logo only, centered ── */
   nav {
-    height: 64px;
-    padding: 0 1.25rem;
-    justify-content: center;
-    background: rgba(20,20,20,0.96);
-    border-bottom: 1px solid var(--border);
     position: fixed;
     top: 0; left: 0; right: 0;
+    height: 64px;
     z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1.25rem;
+    background: rgba(20,20,20,0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
   }
 
-  /* Hide nav links and hamburger on mobile */
+  /* Hide everything in nav except logo */
   .nav-links,
   .btn-nav,
   .nav-toggle { display: none !important; }
 
-  /* Show only logo in nav — bigger and centered */
   .nav-logo {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    text-decoration: none;
   }
 
   .nav-logo-img {
-    width: 42px;
-    height: 42px;
+    width: 40px;
+    height: 40px;
     filter: invert(1);
     opacity: 1;
+    flex-shrink: 0;
   }
 
   .nav-logo-divider {
     width: 1px;
-    height: 28px;
+    height: 26px;
     background: rgba(255,255,255,0.15);
+    flex-shrink: 0;
+  }
+
+  .nav-logo-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
 
   .nav-logo-name {
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text);
+    color: #f0ede8;
+    line-height: 1;
   }
 
   .nav-logo-tag {
-    font-size: 0.58rem;
+    font-size: 0.56rem;
     letter-spacing: 0.08em;
-    color: var(--text-3);
+    color: rgba(255,255,255,0.3);
+    line-height: 1;
   }
 
-  /* Hero logo header — big centered logo below nav */
+  /* ── Big logo header below nav ── */
   .hero-logo-header {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 3rem 1.5rem 2rem;
+    padding: 3rem 1.5rem 2.5rem;
     text-align: center;
     background: var(--bg);
     margin-top: 64px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
   }
 
   .hero-logo-img {
-    width: 110px;
-    height: 110px;
+    width: 120px;
+    height: 120px;
     object-fit: contain;
     filter: invert(1);
     opacity: 1;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
   }
 
   .hero-logo-name {
-    font-family: var(--font-s);
-    font-size: 0.95rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
     font-weight: 600;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--text);
-    margin-bottom: 0.35rem;
+    color: #f0ede8;
+    margin-bottom: 0.4rem;
   }
 
   .hero-logo-tag {
-    font-family: var(--font-s);
-    font-size: 0.65rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.62rem;
     letter-spacing: 0.1em;
-    color: var(--text-3);
+    color: rgba(255,255,255,0.3);
   }
 
-  /* Main content */
+  /* ── Main content ── */
   main {
     padding-top: 0 !important;
     padding-bottom: 110px;
   }
 
-  /* Hero section */
+  /* ── Hero ── */
   .hero-wrap {
     grid-template-columns: 1fr;
     padding: 2.5rem 1.25rem 2rem;
+    min-height: auto;
   }
 
-  .hero-graphic { display: none; }
+  .hero h1 { font-size: 2.4rem; }
 
-  /* Buttons */
   .hero-actions {
     flex-direction: column;
     gap: 0.75rem;
@@ -1034,62 +1054,52 @@ footer {
     text-align: center;
   }
 
-  /* Services */
+  /* ── Services ── */
   .services-grid { grid-template-columns: 1fr; }
-  .svc-card {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
+  .svc-card { border-right: none; border-bottom: 1px solid var(--border); }
   .svc-card:last-child { border-bottom: none; }
 
-  /* Projects */
+  /* ── Projects ── */
   .project-card { grid-template-columns: 1fr; padding: 2rem 1.25rem; }
-  .project-actions {
-    align-items: flex-start;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
+  .project-actions { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
 
-  /* Demo */
+  /* ── Demo ── */
   .demo-page-grid { grid-template-columns: 1fr; }
 
-  /* Why grid */
+  /* ── Why / CTA / Contact ── */
   .why-grid { grid-template-columns: 1fr 1fr; }
-
-  /* Contact + CTA */
   .contact-section,
   .cta-inner { flex-direction: column; gap: 1.25rem; }
 
-  /* Featured */
-  .featured-inner { grid-template-columns: 1fr; gap: 2rem; }
-
-  /* Padding */
+  /* ── Padding ── */
   .section,
   .page-header,
   .services-wrap,
   .why-wrap,
-  .cta-banner { padding-left: 1.25rem; padding-right: 1.25rem; }
+  .cta-banner,
+  .featured-inner { padding-left: 1.25rem; padding-right: 1.25rem; }
 
-  /* ── FLOATING BOTTOM NAV ── */
+  /* ═══════════════════════════════════════
+     FLOATING BOTTOM PILL NAV
+  ═══════════════════════════════════════ */
   .bottom-nav {
-    display: flex;
+    display: flex !important;
     position: fixed;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 999;
-    background: rgba(24,24,24,0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    z-index: 9999;
+    background: rgba(22,22,22,0.96);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 50px;
+    border-radius: 999px;
     padding: 5px;
     gap: 2px;
     box-shadow:
-      0 16px 48px rgba(0,0,0,0.6),
-      0 2px 8px rgba(0,0,0,0.3),
-      inset 0 1px 0 rgba(255,255,255,0.06);
-    width: auto;
+      0 20px 60px rgba(0,0,0,0.7),
+      0 4px 16px rgba(0,0,0,0.4),
+      inset 0 1px 0 rgba(255,255,255,0.07);
   }
 
   .bottom-nav-item {
@@ -1099,18 +1109,25 @@ footer {
     justify-content: center;
     gap: 3px;
     padding: 9px 18px;
-    border-radius: 44px;
+    border-radius: 999px;
     text-decoration: none;
     transition: background 0.15s;
-    min-width: 60px;
+    min-width: 58px;
   }
 
   .bottom-nav-item.active {
     background: var(--accent);
   }
 
-  .bottom-nav-item.active .bottom-nav-icon svg { stroke: #fff; }
-  .bottom-nav-item.active .bottom-nav-label    { color: #fff; }
+  .bottom-nav-item.active .bottom-nav-icon svg {
+    stroke: #fff;
+    opacity: 1;
+  }
+
+  .bottom-nav-item.active .bottom-nav-label {
+    color: #fff;
+    opacity: 1;
+  }
 
   .bottom-nav-icon {
     width: 20px;
@@ -1121,31 +1138,35 @@ footer {
   }
 
   .bottom-nav-icon svg {
-    width: 19px;
-    height: 19px;
-    stroke: rgba(255,255,255,0.45);
+    width: 18px;
+    height: 18px;
+    stroke: rgba(255,255,255,0.5);
     fill: none;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 1.8;
-    transition: stroke 0.15s;
+    transition: stroke 0.15s, opacity 0.15s;
   }
 
   .bottom-nav-label {
-    font-size: 0.55rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.52rem;
     font-weight: 500;
-    color: rgba(255,255,255,0.45);
+    color: rgba(255,255,255,0.5);
     letter-spacing: 0.03em;
     white-space: nowrap;
-    transition: color 0.15s;
+    transition: color 0.15s, opacity 0.15s;
   }
 }
 
-@media (max-width: 480px) {
+/* ── Small phones ── */
+@media (max-width: 420px) {
   .why-grid { grid-template-columns: 1fr; }
-  .bottom-nav-item { padding: 9px 14px; min-width: 52px; }
+  .bottom-nav-item { padding: 9px 13px; min-width: 50px; }
+  .hero-logo-img { width: 100px; height: 100px; }
 }
 
+/* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--bg-4); border-radius: 2px; }
