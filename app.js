@@ -152,3 +152,16 @@
 
   setStatus('Ready');
 })();
+
+// ── BOTTOM NAV ACTIVE STATE ──
+(function () {
+  const page = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.bottom-nav-item').forEach(a => {
+    const href = a.getAttribute('href');
+    if (!href) return;
+    const hpage = href.split('/').pop().split('#')[0] || 'index.html';
+    if (hpage === page || (page === '' && hpage === 'index.html')) {
+      a.classList.add('active');
+    }
+  });
+})();
