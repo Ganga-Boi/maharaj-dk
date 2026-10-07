@@ -140,3 +140,21 @@
 
   setStatus('Ready');
 })();
+
+// State-of-art motion: subtle, progressive and dependency-free
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+  const lines = document.querySelectorAll('.kinetic-line');
+  window.addEventListener('scroll', () => {
+    const y = Math.min(window.scrollY, 700);
+    lines.forEach((el,i)=>{ el.style.transform = 'translate3d(' + (y*(i-1)*.035) + 'px,' + (y*.018*(i+1)) + 'px,0)'; });
+  }, {passive:true});
+  document.querySelectorAll('.build-card').forEach(card => {
+    card.addEventListener('pointermove', e => {
+      const r=card.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+      card.style.transform='perspective(900px) rotateX('+(-y*2.2)+'deg) rotateY('+(x*2.2)+'deg) translateY(-5px)';
+    });
+    card.addEventListener('pointerleave',()=>card.style.transform='');
+  });
+})();
