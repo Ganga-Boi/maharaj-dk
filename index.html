@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles.css"/>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231a1a1a'/><rect x='4' y='10' width='10' height='12' rx='1' fill='%23e05520'/><rect x='18' y='10' width='10' height='12' rx='1' fill='%23e05520'/></svg>"/>
 </head>
-<body id="top"><div class="ambient ambient-a"></div><div class="ambient ambient-b"></div><div class="grain"></div>
+<body id="top"><div class="ambient ambient-a"></div><div class="ambient ambient-b"></div><div class="grain"></div><canvas id="liquidCanvas" aria-hidden="true"></canvas><div class="cursor-lens" aria-hidden="true"></div>
 
 <!-- DESKTOP NAV -->
 <nav class="site-nav liquid-nav" aria-label="Main navigation">
@@ -83,7 +83,7 @@
   </div>
 
 
-  <section class="builds-section fade-in" id="work">
+  <div class="floating-dock" aria-label="Quick navigation"><a href="#top" data-tip="Home">AM</a><a href="#work" data-tip="Work">01</a><a href="#about" data-tip="About">02</a><a href="mailto:allan@maharaj.dk" data-tip="Talk">↗</a></div><section class="builds-section fade-in" id="work">
     <div class="builds-head">
       <p class="section-label">SELECTED BUILDS</p>
       <h2 class="section-title">From software to sensors.</h2>
