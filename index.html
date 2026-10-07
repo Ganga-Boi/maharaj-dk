@@ -8,42 +8,24 @@
   <link rel="stylesheet" href="styles.css"/>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231a1a1a'/><rect x='4' y='10' width='10' height='12' rx='1' fill='%23e05520'/><rect x='18' y='10' width='10' height='12' rx='1' fill='%23e05520'/></svg>"/>
 </head>
-<body>
+<body id="top"><div class="ambient ambient-a"></div><div class="ambient ambient-b"></div><div class="grain"></div>
 
 <!-- DESKTOP NAV -->
-<nav class="site-nav">
-  <a class="nav-logo" href="index.html">
-    <img src="Logo.png" alt="Maharaj Systems" class="nav-logo-img"/>
-    <div class="nav-divider"></div>
-    <div class="nav-brand">
-      <span class="nav-brand-name">Maharaj Systems</span>
-      <span class="nav-brand-tag">AI Builder · Product Prototyping · Automation</span>
-    </div>
-  </a>
-  <ul class="nav-links">
-    <li><a href="index.html" class="active">Home</a></li>
-    <li><a href="projects.html">Projects</a></li>
-    <li><a href="demo.html">Demo</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a href="demo.html" class="nav-cta">View Demo →</a>
+<nav class="site-nav liquid-nav" aria-label="Main navigation">
+  <a class="nav-monogram" href="#top" aria-label="Allan Maharaj home"><span>A</span><i></i><span>M</span></a>
+  <div class="nav-links nav-pill-links"><a href="#work">Work</a><a href="#about">About</a><a href="demo.html">Playground</a></div>
+  <a href="mailto:allan@maharaj.dk" class="nav-cta nav-talk"><span class="status-dot"></span>Let's talk</a>
 </nav>
 
 <!-- MOBILE HEADER (logo + brand, sticky top) -->
-<div class="mobile-header">
-  <img src="Logo.png" alt="Maharaj Systems" class="mobile-logo"/>
-  <div class="mobile-brand-name">Maharaj Systems</div>
-  <div class="mobile-brand-tag">AI Builder · Product Prototyping · Automation</div>
-</div>
-
-<main>
+<div class="mobile-header"><a class="nav-monogram" href="#top"><span>A</span><i></i><span>M</span></a><span>AI BUILDER · DK</span></div><main>
 
   <!-- HERO -->
-  <div class="hero">
+  <div class="hero hero-v2">
     <div class="hero-content">
-      <p class="hero-label">ALLAN MAHARAJ · AI BUILDER</p>
-      <h1>Ideas are cheap.<br><span class="hero-accent">I build them.</span></h1>
-      <p class="hero-sub">I turn real-world problems into working digital products — using AI, automation, code and rapid prototyping. I don't build exercises. I build things people can actually use.</p>
+      <p class="hero-label"><span class="status-dot"></span> ALLAN MAHARAJ · AI BUILDER · DENMARK</p>
+      <h1><span class="kinetic-line">I BUILD</span><br><span class="kinetic-line hero-outline">WHAT I</span><br><span class="kinetic-line hero-accent">IMAGINE.</span></h1>
+      <p class="hero-sub">Real problems become working products. AI systems, useful apps, automation and connected hardware — conceived, prototyped and shipped.</p>
       <div class="hero-proof">
         <div class="hero-proof-bar"></div>
         <span class="hero-proof-text">Built from curiosity. Shipped as working products.</span>
@@ -53,40 +35,10 @@
         <a href="demo.html" class="btn-secondary">Try Demo →</a>
       </div>
     </div>
-    <div class="hero-graphic">
-      <svg viewBox="0 0 480 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="glow" cx="65%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#e05520" stop-opacity="0.15"/>
-            <stop offset="100%" stop-color="#e05520" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <ellipse cx="300" cy="210" rx="180" ry="140" fill="url(#glow)"/>
-        <path d="M 80 80 C 200 80 200 180 320 180" stroke="#e05520" stroke-width="1.5" stroke-opacity="0.7" fill="none"/>
-        <path d="M 80 140 C 200 140 200 190 320 190" stroke="#e05520" stroke-width="1.0" stroke-opacity="0.5" fill="none"/>
-        <path d="M 80 200 C 200 200 200 200 320 200" stroke="#a09d98" stroke-width="0.8" stroke-opacity="0.35" fill="none"/>
-        <path d="M 80 260 C 200 260 200 212 320 212" stroke="#a09d98" stroke-width="0.8" stroke-opacity="0.28" fill="none"/>
-        <path d="M 80 320 C 200 320 200 222 320 222" stroke="#a09d98" stroke-width="0.7" stroke-opacity="0.2" fill="none"/>
-        <circle cx="80" cy="80"  r="5" fill="#e05520"/>
-        <circle cx="80" cy="140" r="4" fill="#e05520" fill-opacity="0.7"/>
-        <circle cx="80" cy="200" r="3.5" fill="#a09d98" fill-opacity="0.5"/>
-        <circle cx="80" cy="260" r="3" fill="#a09d98" fill-opacity="0.4"/>
-        <circle cx="80" cy="320" r="2.5" fill="#a09d98" fill-opacity="0.3"/>
-        <text x="96" y="84" font-family="DM Mono,monospace" font-size="10" fill="#a09d98" fill-opacity="0.7">Facebook</text>
-        <text x="96" y="144" font-family="DM Mono,monospace" font-size="10" fill="#a09d98" fill-opacity="0.6">Meetup</text>
-        <text x="96" y="204" font-family="DM Mono,monospace" font-size="10" fill="#a09d98" fill-opacity="0.45">Instagram</text>
-        <text x="96" y="264" font-family="DM Mono,monospace" font-size="10" fill="#a09d98" fill-opacity="0.35">Web</text>
-        <text x="96" y="324" font-family="DM Mono,monospace" font-size="10" fill="#a09d98" fill-opacity="0.25">Email / SMS</text>
-        <circle cx="320" cy="200" r="12" fill="#e05520" fill-opacity="0.15" stroke="#e05520" stroke-width="1.5" stroke-opacity="0.6"/>
-        <circle cx="320" cy="200" r="5" fill="#e05520"/>
-        <path d="M 332 200 L 400 200" stroke="#e05520" stroke-width="1.5" stroke-opacity="0.7" stroke-dasharray="4 3"/>
-        <rect x="400" y="166" width="72" height="68" rx="4" fill="#2a2a2a" stroke="#e05520" stroke-width="1" stroke-opacity="0.4"/>
-        <text x="413" y="185" font-family="DM Mono,monospace" font-size="7.5" fill="#a09d98">"title"</text>
-        <text x="413" y="198" font-family="DM Mono,monospace" font-size="7.5" fill="#a09d98">"date"</text>
-        <text x="413" y="211" font-family="DM Mono,monospace" font-size="7.5" fill="#a09d98">"venue"</text>
-        <text x="413" y="224" font-family="DM Mono,monospace" font-size="7.5" fill="#e05520">"price"</text>
-        <text x="296" y="228" font-family="DM Mono,monospace" font-size="8" fill="#e05520" fill-opacity="0.8" text-anchor="middle">AI Parser</text>
-      </svg>
+    <div class="hero-graphic hero-orbit" aria-hidden="true">
+      <div class="orbit-ring orbit-1"></div><div class="orbit-ring orbit-2"></div>
+      <div class="orbit-core"><div class="am-mark"><span>A</span><i></i><span>M</span></div></div>
+      <span class="orbit-chip chip-ai">AI</span><span class="orbit-chip chip-apps">APPS</span><span class="orbit-chip chip-iot">IoT</span>
     </div>
   </div>
 
@@ -131,13 +83,13 @@
   </div>
 
 
-  <section class="builds-section fade-in">
+  <section class="builds-section fade-in" id="work">
     <div class="builds-head">
       <p class="section-label">SELECTED BUILDS</p>
       <h2 class="section-title">From software to sensors.</h2>
       <p class="builds-intro">Different problems. Same approach: understand it, prototype it, make it work.</p>
     </div>
-    <div class="builds-grid">
+    <div class="builds-grid kinetic-projects">
       <article class="build-card build-card-wide"><span class="build-no">01</span><div><h3>FilmAI</h3><p>Idea → script → characters → storyboard → generated video. A production workflow exploring how AI can turn a rough concept into a finished scene.</p><div class="build-tags"><span>AI VIDEO</span><span>WORKFLOW</span><span>PRODUCT</span></div></div></article>
       <article class="build-card"><span class="build-no">02</span><div><h3>SmartRain</h3><p>A battery-powered connected rain gauge: nRF54 electronics, tipping-bucket sensing, low-power communication and a 3D-printable outdoor enclosure.</p><div class="build-tags"><span>IoT</span><span>HARDWARE</span><span>PROTOTYPE</span></div></div></article>
       <article class="build-card"><span class="build-no">03</span><div><h3>Træningssjov</h3><p>A mobile-first attendance and punch-card system replacing a paper book with reliable sessions, balances and payment registration.</p><div class="build-tags"><span>WEB APP</span><span>SUPABASE</span><span>UX</span></div></div></article>
@@ -253,7 +205,7 @@
   </div>
 
   <!-- CONTACT -->
-  <section id="contact" class="contact-section fade-in">
+  <section id="about" class="manifesto-section fade-in"><p class="section-label">THE WAY I BUILD</p><p class="manifesto-copy">I am not interested in technology for technology’s sake. <span>I see something that should work better,</span> learn what I need, and build it until it does.</p><div class="manifesto-meta"><span>CURIOUS BY DEFAULT</span><span>PROBLEM → PROTOTYPE → PRODUCT</span><span>HILLERØD · DENMARK</span></div></section><section id="contact" class="contact-section fade-in">
     <div>
       <h2 class="contact-title">Get in touch</h2>
       <p class="contact-sub">Available for freelance and collaboration.</p>
@@ -268,7 +220,7 @@
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-copy">© 2026 Allan Maharaj · Maharaj Systems</div>
+    <div class="footer-copy">© 2026 ALLAN MAHARAJ — BUILT WITH CURIOSITY</div>
     <div class="footer-links">
       <a href="projects.html">Projects</a>
       <a href="demo.html">Demo</a>
