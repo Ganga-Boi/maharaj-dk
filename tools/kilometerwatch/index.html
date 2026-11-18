@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1b24">
+<meta name="description" content="KilometerWatch: kørselsrådgiver for Renault Zoe med kilometerbudget og planer for fornøjelse til København.">
+<title>Renault Zoe · KilometerWatch</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--bg:#091a24;--panel:#14303a;--border:#2d4c57;--text:#edf8f5;--muted:#aec3c9;--mint:#75e5ae;--amber:#ffd17b;--red:#ff777a}
+*{box-sizing:border-box}html{background:var(--bg);min-height:100%}body{margin:0;color:var(--text);background:radial-gradient(ellipse 100% 24% at 50% -3%,#285650,transparent),var(--bg);min-height:100dvh}.wrap{width:min(100%,510px);margin:auto;padding:23px 15px 60px}.header{display:flex;align-items:center;gap:12px;margin-bottom:20px}.brandicon{background:#265952;color:#9df2c8;border-radius:16px;display:grid;place-items:center;width:50px;height:50px;flex:none}.brandicon svg{width:30px}.brand small{font-size:11px;letter-spacing:.15em;color:#94e3c7;font-weight:800}.brand h1{font-size:24px;margin:1px 0 0;letter-spacing:-.045em}.goal{border:1px solid #4b7773;font-size:11px;padding:7px 9px;border-radius:16px;margin-left:auto;white-space:nowrap;color:#d4eae4}.panel{background:linear-gradient(148deg,#173840,#102732);border:1px solid var(--border);border-radius:22px;padding:20px;margin:0 0 13px;box-shadow:0 12px 32px #02101a33}.hero{text-align:center;background:radial-gradient(circle at 50% 22%,#20504c,#14343d 60%,#102632);padding:24px 13px 22px}.overline{text-transform:uppercase;color:#a9cac7;letter-spacing:.14em;font-size:11px;font-weight:800}.odo{font-size:clamp(45px,12vw,62px);line-height:1.2;margin:8px 0 5px;letter-spacing:-.055em;font-weight:850;font-variant-numeric:tabular-nums}.odo .unit{font-size:16px;color:#abc3c7;letter-spacing:0}.muted{color:var(--muted)}.small{font-size:12px;line-height:1.45}.divider{height:1px;background:#39595c;margin:20px 3px 16px}.gauge{width:100%;max-width:370px;margin:2px auto -14px;display:block;overflow:visible}.needle{transform-origin:180px 166px;transition:transform .6s}.gauge .value{font-size:35px;fill:#f4f9f7;font-weight:850;letter-spacing:-1.6px}.gauge .units{font-size:11px;fill:#b4c9cb}.gauge .tick{font-size:11px;fill:#a9bfc3}.status{font-weight:850;font-size:18px;letter-spacing:.03em;margin:10px 0 6px}.status.green{color:var(--mint)}.status.amber{color:var(--amber)}.status.red{color:var(--red)}.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:20px 2px 12px}.fact{padding:0 2px}.fact .lbl{display:block;text-transform:uppercase;font-size:10px;color:#a6c0c4;letter-spacing:.055em;font-weight:750}.fact strong{display:block;margin-top:6px;font-size:19px;font-variant-numeric:tabular-nums}.fact small{font-size:10px;color:#aac0c5}.fact strong.negative{color:var(--red)}.fact strong.positive{color:var(--mint)}.explanation{font-size:12px;line-height:1.6;color:#b4cbd0;margin:15px 6px 2px}.panel h2{font-size:18px;margin:0 0 8px;letter-spacing:-.025em}.tag{font-size:10px;border:1px solid #486d72;color:#bcd6d8;padding:3px 9px;border-radius:20px;white-space:nowrap}.flexhead{display:flex;align-items:center;justify-content:space-between;gap:8px}.advice{border-left:4px solid var(--mint);background:#173c39;padding:12px 13px;border-radius:9px;margin:12px 0;color:#dff9ec;line-height:1.5;font-size:13px}.advice.warn{border-left-color:var(--amber);background:#3b3229;color:#fff0d3}.advice.danger{border-left-color:var(--red);background:#432b30;color:#ffe5e5}.numbers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}.metric{background:#0c2630;border:1px solid #2f5057;border-radius:13px;padding:12px}.metric small{display:block;color:var(--muted);font-size:11px}.metric strong{display:block;font-size:25px;margin-top:5px;font-variant-numeric:tabular-nums}.metric em{font-size:11px;color:var(--muted);font-style:normal}.plot{display:flex;gap:5px;margin:15px 0 4px}.plot div{height:9px;border-radius:10px}.keyline{font-size:12px;line-height:1.5;color:var(--muted);margin:13px 0 0}.fieldrow{display:flex;gap:9px;margin:13px 0 0}.fieldrow input{min-width:0;flex:1;background:#081e29;color:#fff;padding:12px;border:1px solid #4a7176;border-radius:12px;font:inherit;font-size:20px}.fieldrow input:focus,.settings input:focus{outline:2px solid #72eab1}.btn{border:0;border-radius:12px;font:inherit;font-weight:800;cursor:pointer;padding:12px 15px;background:#8be7ba;color:#0b3527}.btn-secondary{border:1px solid #496971;background:#203e48;color:#e1f2ec}.btn:disabled{opacity:.45;cursor:not-allowed}.underrow{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:11px}.note{min-height:15px;font-size:12px;color:var(--amber);margin:10px 0 0;line-height:1.4}.settings{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.settings label{font-size:11px;color:#bcd0d0;display:flex;flex-direction:column;gap:5px}.settings input{font:inherit;font-size:16px;background:#08222e;border:1px solid #496773;color:#f5faf8;border-radius:10px;padding:10px 12px;width:100%;font-variant-numeric:tabular-nums}.settings .full{grid-column:span 2}.history{font-size:12px}.history summary{cursor:pointer;text-decoration:underline;color:#aac4c6;text-underline-offset:3px}.history ul{padding:0;list-style:none}.history li{border-bottom:1px solid #2b4952;display:flex;justify-content:space-between;padding:8px 2px;color:#afc9ce}.history strong{color:#e7faf3}.backups{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.backups button{font-size:12px;padding:9px 12px}.foot{font-size:11px;color:#88a7ad;text-align:center;margin-top:17px;line-height:1.6}.toast{position:fixed;bottom:15px;left:50%;transform:translateX(-50%);width:min(calc(100% - 26px),440px);background:#193c40;border:1px solid #78d0af;border-radius:14px;padding:13px 14px;box-shadow:0 12px 30px #0009;font-size:13px;line-height:1.4;z-index:20}.toast[hidden]{display:none}.toast button{float:right;margin-left:6px;background:none;border:0;color:#a6f7d8;font-size:18px;cursor:pointer}.toptip{font-size:11px;color:#9ebec4;margin:6px 0}.secondary{color:#b4cdd0}@media(max-width:360px){.wrap{padding:17px 10px 40px}.panel{padding:16px}.header h1{font-size:21px}.goal{font-size:10px;padding:6px}.metric strong{font-size:21px}.fact strong{font-size:17px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="header"><div class="brandicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 18a9 9 0 0 1 18 0"/><path d="m12 13 6-6"/><circle cx="12" cy="13" r="2"/><path d="M7 21h10"/></svg></div><div class="brand"><small>RENAULT ZOE</small><h1>KilometerWatch</h1></div><div class="goal">22.000 km/år</div></header>
+<section class="panel hero" aria-label="Kilometertæller og årstempo">
+<div class="overline">Kilometerstand</div><div class="odo"><span id="odometer">114.695</span> <span class="unit">km</span></div><div id="updated" class="muted small">Seneste aflæsning</div><div class="divider"></div>
+<div class="overline">Beregnet årstempo</div>
+<svg class="gauge" viewBox="0 0 360 265" role="img" aria-label="Beregnet årlig kilometerstand">
+<path id="greenArc" fill="none" stroke="#69e3a8" stroke-width="18" stroke-linecap="round"/><path id="amberArc" fill="none" stroke="#ffd17b" stroke-width="18" stroke-linecap="round"/><path id="redArc" fill="none" stroke="#ff797b" stroke-width="18" stroke-linecap="round"/>
+<g class="needle" id="needle"><line x1="180" y1="166" x2="180" y2="73" stroke="#f5fbf8" stroke-width="5" stroke-linecap="round"/><circle cx="180" cy="166" r="12" fill="#eff8f3"/><circle cx="180" cy="166" r="5" fill="#164449"/></g>
+<text id="annual" class="value" x="180" y="226" text-anchor="middle">—</text><text class="units" x="180" y="250" text-anchor="middle">KM / ÅR</text><text class="tick" x="33" y="224" text-anchor="middle">18.000</text><text class="tick" x="328" y="224" text-anchor="middle">30.000</text>
+</svg>
+<div id="state" class="status amber">AFVENTER FLERE MÅLINGER</div>
+<div class="facts"><div class="fact"><span class="lbl">Buffer</span><strong id="buffer">—</strong><small>km ift. 22.000</small></div><div class="fact"><span class="lbl">Budget / uge</span><strong id="weekBudget">—</strong><small>km i kommende uger</small></div><div class="fact"><span class="lbl">Margin til 25.000</span><strong id="hardMargin">—</strong><small>km/år i prognosen</small></div></div>
+<p id="tempoDesc" class="explanation">Årstempoet beregnes ud fra gemte aflæsninger.</p>
+</section>
+<section class="panel" aria-label="Kørselsrådgiver">
+<div class="flexhead"><h2>Kørselsrådgiver</h2><span class="tag">Plan for næste uge</span></div>
+<p class="small muted">Arbejde reserveres først. Resten er dit budget til fornøjelser og privatkørsel.</p>
+<div class="numbers">
+<div class="metric"><small>Arbejde, reserveret</small><strong id="workKm">220 km</strong><em>44 km × 5 dage</em></div>
+<div class="metric"><small>Fornøjelse til København</small><strong id="cphSlots">2 ture</strong><em id="cphKm">72 km tur/retur</em></div>
+<div class="metric"><small>Øvrig privatkørsel</small><strong id="otherKm">0 km</strong><em>Dit forventede ugebudget</em></div>
+<div class="metric"><small>Planlagt / uge</small><strong id="plannedKm">—</strong><em id="roomLeft">—</em></div>
+</div>
+<div class="advice" id="advice" role="status" aria-live="polite">Din anbefaling kommer her.</div>
+<div class="plot" aria-hidden="true"><div id="workBar" style="background:#6ce2a8;width:54%"></div><div id="cphBar" style="background:#ffd17b;width:34%"></div><div id="otherBar" style="background:#70a8d1;width:4%"></div><div id="leftBar" style="background:#334e59;width:8%"></div></div>
+<p id="mathDesc" class="keyline"></p>
+<details style="margin-top:16px"><summary class="small" style="cursor:pointer;text-decoration:underline">Tilpas min ugeplan</summary>
+<div class="settings">
+<label>Arbejdsdage / uge<input id="workDays" type="number" min="0" max="7" step="1" value="5"></label>
+<label>Km pr. arbejdsdag<input id="workRoundtrip" type="number" min="0" max="300" step="1" value="44"></label>
+<label>Fornøjelse til København / uge<input id="plannedTrips" type="number" min="0" max="14" step="1" value="2"></label>
+<label>Km tur/retur København<input id="cphRoundtrip" type="number" min="1" max="500" step="1" value="72"></label>
+<label class="full">Øvrig privatkørsel, km/uge<input id="otherPrivate" type="number" min="0" max="1000" step="1" value="0"></label>
+</div>
+<p class="small muted">Indstillinger gemmes kun på denne enhed. Standard: 5 arbejdsdage × 44 km, 72 km pr. København-tur. Weekender og ferie er ikke automatisk arbejdsdage.</p>
+</details>
+</section>
+<section class="panel" aria-label="Ny kilometeraflæsning"><h2>Ny aflæsning</h2><form id="form"><label for="kmInput" class="small muted">Kilometerstand fra bilens tæller</label><div class="fieldrow"><input id="kmInput" type="text" inputmode="numeric" autocomplete="off" placeholder="F.eks. 115700" maxlength="10" required><button type="submit" class="btn">Gem</button></div><div class="underrow"><button id="undo" type="button" class="btn btn-secondary" disabled>↶ Fortryd seneste</button><span id="lastDelta" class="small muted">—</span></div><p class="note" id="message" aria-live="polite"></p></form></section>
+<section class="panel"><h2>Historik og sikkerhedskopi</h2><details class="history"><summary>Vis gemte aflæsninger</summary><ul id="historyList"></ul></details><div class="backups"><button id="export" class="btn btn-secondary" type="button">Gem sikkerhedskopi</button><button id="importBtn" class="btn btn-secondary" type="button">Indlæs sikkerhedskopi</button><input id="importFile" type="file" accept=".json,application/json" hidden></div><p class="small muted">Dine målinger bliver på denne telefon. Gem en sikkerhedskopi før en eventuel opdatering af Netlify-siden.</p></section>
+<p class="foot">Mål: 22.000 km/år · Absolut maksimum: 25.000 km/år.<br>Årsperioden regnes fra første baseline 2. november 2026. Rådene er planlægningshjælp, ikke automatiske kilometermålinger.</p>
+</main>
+<div id="toast" class="toast" hidden><button type="button" id="closeToast" aria-label="Luk besked">×</button><span id="toastText"></span></div>
+<script>
+(()=>{'use strict';
+const KEY='kilometerwatch-v7-manuel', SETTINGS_KEY='kilometerwatch-v9-settings',BASE={date:'2026-11-02',km:114695},GOAL=22000,HARD=25000,DAYS=365.2425,RECOVERY_WEEKS=4;
+const initialSettings={workDays:5,workRoundtrip:44,plannedTrips:2,cphRoundtrip:72,otherPrivate:0};
+const $=id=>document.getElementById(id), fmt=n=>new Intl.NumberFormat('da-DK',{maximumFractionDigits:0}).format(Math.round(n));
+function day(s){let d=new Date(s+'T12:00:00Z');if(!/^\d{4}-\d{2}-\d{2}$/.test(s)||Number.isNaN(d.getTime())||d.toISOString().slice(0,10)!==s)throw Error('Ugyldig dato');return Date.UTC(+s.slice(0,4),+s.slice(5,7)-1,+s.slice(8,10))/86400000}
+function today(){let d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function fullDate(s){return new Intl.DateTimeFormat('da-DK',{day:'numeric',month:'long',year:'numeric'}).format(new Date(s+'T12:00:00'))}
+function validate(a){if(!Array.isArray(a)||a.length>3000)throw Error('Ugyldig historik');let prev=BASE;for(const o of a){if(!o||typeof o.date!=='string'||!Number.isSafeInteger(o.km)||o.km<prev.km||o.km>2000000||day(o.date)<day(prev.date)||day(o.date)>day(today()))throw Error('Ugyldig historik eller kilometertal');prev=o}return a.map(e=>({date:e.date,km:e.km}))}
+let entries=[{date:'2026-11-18',km:115678}];try{const saved=JSON.parse(localStorage.getItem(KEY));if(saved?.version===1&&Array.isArray(saved.entries))entries=validate(saved.entries)}catch(e){console.warn('Historikken kunne ikke indlæses; originalen er ikke slettet',e)}
+let settings={...initialSettings};try{const old=JSON.parse(localStorage.getItem(SETTINGS_KEY));if(old&&typeof old==='object')Object.keys(initialSettings).forEach(k=>{let v=Number(old[k]);if(Number.isFinite(v)&&v>=0&&v<=1000)settings[k]=v})}catch(e){}
+const limits={workDays:7,workRoundtrip:300,plannedTrips:14,cphRoundtrip:500,otherPrivate:1000};
+Object.keys(initialSettings).forEach(k=>{$(k).value=settings[k];$(k).addEventListener('change',()=>{let v=Number($(k).value);settings[k]=Number.isFinite(v)?Math.max(k==='cphRoundtrip'?1:0,Math.min(limits[k],Math.floor(v))):initialSettings[k];$(k).value=settings[k];localStorage.setItem(SETTINGS_KEY,JSON.stringify(settings));render()})});
+function save(){localStorage.setItem(KEY,JSON.stringify({version:1,baseline:BASE,entries}))}
+function path(a,b){let r='';for(let d=a;d<=b;d+=(b-a)/32){let rd=Math.PI*d/180;r+=(r?'L':'M')+(180+122*Math.sin(rd)).toFixed(1)+','+(166-122*Math.cos(rd)).toFixed(1)}let rd=Math.PI*b/180;return r+'L'+(180+122*Math.sin(rd)).toFixed(1)+','+(166-122*Math.cos(rd)).toFixed(1)}
+const ang=v=>-110+220*(v-18000)/(30000-18000);
+$('greenArc').setAttribute('d',path(-110,ang(22000)));$('amberArc').setAttribute('d',path(ang(22000),ang(25000)));$('redArc').setAttribute('d',path(ang(25000),110));
+function model(){
+const last=entries.at(-1)||BASE, elapsed=Math.max(0,day(last.date)-day(BASE.date)),distance=last.km-BASE.km,pace=elapsed?distance*DAYS/elapsed:null,preliminary=elapsed<28;
+const buffer=(GOAL*elapsed/DAYS)-distance;const remainingDays=Math.max(0,DAYS-elapsed),remainingWeeks=remainingDays/7;
+const nominal=GOAL*7/DAYS;let weekly=remainingWeeks>0?Math.max(0,(GOAL-distance)/remainingWeeks):0;
+weekly=Math.min(nominal,weekly);
+if(buffer<0)weekly=Math.min(weekly,Math.max(0,nominal+buffer/RECOVERY_WEEKS));
+const work=settings.workDays*settings.workRoundtrip,cph=settings.cphRoundtrip,planned=settings.plannedTrips*cph,other=settings.otherPrivate,optional=Math.max(0,weekly-work-other),slots=Math.max(0,Math.floor(optional/cph+1e-9)),skip=Math.max(0,settings.plannedTrips-slots),total=work+planned+other;
+const over=total-weekly;const status=pace===null?'unknown':pace>=HARD?'red':pace>GOAL||buffer<0?'amber':'green';
+return{last,elapsed,distance,pace,preliminary,buffer,remainingDays,remainingWeeks,weekly,work,cph,planned,other,optional,slots,skip,total,over,status,hardLeft:HARD-distance,targetLeft:GOAL-distance};
+}
+function showToast(text){$('toastText').textContent=text;$('toast').hidden=false}
+$('closeToast').onclick=()=>$('toast').hidden=true;
+function render(showNotification=false){const m=model();
+$('odometer').textContent=fmt(m.last.km);$('updated').textContent=fullDate(m.last.date)+(m.last.date!==today()?' · opdatér gerne aflæsningen':'');
+$('annual').textContent=m.pace===null?'—':fmt(m.pace);$('needle').style.transform='rotate('+Math.max(-110,Math.min(110,ang(m.pace??GOAL)))+'deg)';
+let stateText=m.status==='unknown'?'AFVENTER AFLÆSNINGER':m.status==='red'?'RØD ZONE · OVER 25.000':m.status==='amber'?'GUL ZONE · OVER MÅL':'GRØN ZONE · INDEN FOR MÅL';if(m.preliminary&&m.status!=='unknown')stateText+=' · FORELØBIG';$('state').textContent=stateText;$('state').className='status '+(m.status==='unknown'?'amber':m.status);
+$('buffer').textContent=(m.buffer>=0?'+':'')+fmt(m.buffer);$('buffer').className=m.buffer>=0?'positive':'negative';$('weekBudget').textContent=fmt(m.weekly)+' km';$('hardMargin').textContent=m.pace===null?'—':fmt(HARD-m.pace)+' km';
+$('tempoDesc').textContent=m.pace===null?'Tilføj en ny aflæsning efter startmålingen for at få en beregning.':m.preliminary?'Foreløbig prognose baseret på '+m.elapsed+' dage. En enkelt lang tur kan påvirke årstempoet kraftigt. Alle kilometer tæller stadig i budgettet.':'Årstempo beregnet på '+m.elapsed+' dages kørsel. Alle ture tæller, også ekstraordinære.';
+$('workKm').textContent=fmt(m.work)+' km';$('cphSlots').textContent=fmt(m.slots)+' ture';$('cphKm').textContent=fmt(m.cph)+' km pr. tur';$('otherKm').textContent=fmt(m.other)+' km';$('plannedKm').textContent=fmt(m.total)+' km';$('roomLeft').textContent=(m.over>0?fmt(m.over)+' km over budget':'Plads: '+fmt(-m.over)+' km');
+let a=$('advice');a.className='advice';let advice='';
+if(m.remainingDays<=0){a.className+=' danger';advice='Årsperioden er afsluttet. Start en ny periode efter du har eksporteret historikken.'}
+else if(m.work>m.weekly){a.className+=' danger';advice='Dit budget rækker ikke til den reserverede arbejdskørsel. Sænk den øvrige kørsel og kontrollér årsmål eller periode.'}
+else if(m.skip>0){a.className+=' warn';advice='Overvej at springe '+fmt(m.skip)+' af dine '+fmt(settings.plannedTrips)+' planlagte ture med fornøjelse til København over i den kommende uge. Arbejdskørslen er reserveret.'}
+else if(m.status==='red'){a.className+=' danger';advice='Du ligger over den absolutte grænse i prognosen. Undgå ekstra ture, indtil du har en mere stabil udvikling.'}
+else if(m.buffer<0){a.className+=' warn';advice='Du ligger '+fmt(-m.buffer)+' km foran dit 22.000-km-budget. Dine planlagte ture kan stadig være mulige – hold øje med rådene efter næste aflæsning.'}
+else{advice='Din plan passer lige nu til 22.000 km/år. Arbejde er sikret, og du har plads til op til '+fmt(m.slots)+' ture med fornøjelse til København næste uge.'}
+a.textContent=advice;
+$('mathDesc').textContent='Ugebudget '+fmt(m.weekly)+' km − arbejde '+fmt(m.work)+' km − øvrig privatkørsel '+fmt(m.other)+' km = '+fmt(m.optional)+' km til København. '+(m.buffer<0?'Overkørsel indhentes gradvist over '+RECOVERY_WEEKS+' uger.':'Enkeltstående lange ture tæller med, men afgør ikke rådet alene.');
+const w=Math.min(m.weekly,m.work),k=Math.min(Math.max(0,m.weekly-w),m.planned),o=Math.min(Math.max(0,m.weekly-w-k),m.other),remaining=Math.max(0,m.weekly-w-k-o),den=Math.max(1,m.weekly);[['workBar',w],['cphBar',k],['otherBar',o],['leftBar',remaining]].forEach(([id,val])=>{$(id).style.width=(val/den*100)+'%'});
+$('undo').disabled=entries.length===0;$('lastDelta').textContent=entries.length?'+'+fmt(m.last.km-(entries.at(-2)||BASE).km)+' km siden sidst':'Start: '+fmt(BASE.km)+' km';const list=$('historyList');list.replaceChildren();[...entries,BASE].reverse().forEach(e=>{let li=document.createElement('li'),span=document.createElement('span'),strong=document.createElement('strong');span.textContent=fullDate(e.date)+(e===BASE?' · start':'');strong.textContent=fmt(e.km)+' km';li.append(span,strong);list.appendChild(li)});
+if(showNotification&&(m.skip>0||m.status==='red'))showToast(advice);
+}
+$('form').onsubmit=e=>{e.preventDefault();const msg=$('message'),raw=$('kmInput').value.trim().replace(/[.\s]/g,'');if(!/^\d{5,7}$/.test(raw)){msg.textContent='Indtast hele kilometerstanden, fx 115678.';return}const km=Number(raw),prev=entries.at(-1)||BASE,date=today();if(km<prev.km||km>2000000){msg.textContent='Kilometerstanden skal være mindst '+fmt(prev.km)+' km.';return}if(date<prev.date){msg.textContent='Telefonens dato er før seneste aflæsning.';return}if(date===prev.date&&km===prev.km){msg.textContent='Denne aflæsning er allerede gemt.';return}if(km-prev.km>Math.max(1,day(date)-day(prev.date))*600+200&&!confirm('Er en stigning på '+fmt(km-prev.km)+' km korrekt?'))return;entries.push({date,km});try{save()}catch(err){entries.pop();msg.textContent='Kunne ikke gemme aflæsningen på denne enhed.';return}msg.textContent='Aflæsning gemt.';msg.style.color='var(--mint)';$('kmInput').value='';render(true)};
+$('undo').onclick=()=>{if(!entries.length)return;if(!confirm('Fortryd den seneste aflæsning?'))return;entries.pop();save();$('message').textContent='Seneste aflæsning fortrudt.';render()};
+$('export').onclick=()=>{let blob=new Blob([JSON.stringify({app:'KilometerWatch',version:9,baseline:BASE,readings:[BASE,...entries],settings},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='kilometerwatch-backup-'+today()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)};
+$('importBtn').onclick=()=>$('importFile').click();$('importFile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let j=JSON.parse(await f.text()),data=j.readings??j.entries??j?.data?.readings;if(!Array.isArray(data))throw Error('Ingen aflæsninger i filen');let valid=validate(data.filter(x=>!(x.date===BASE.date&&x.km===BASE.km)));if(!confirm('Indlæs '+valid.length+' aflæsninger? Dette erstatter nuværende historik på denne enhed. Gem gerne en sikkerhedskopi først.'))return;entries=valid;save();render();$('message').textContent='Historik indlæst.'}catch(err){alert('Kunne ikke indlæse filen: '+err.message)}finally{e.target.value=''}};
+render();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+})();
+</script>
+</body>
+</html>
