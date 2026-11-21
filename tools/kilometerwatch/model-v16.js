@@ -1,12 +1,13 @@
 // All calendar arithmetic uses civil days. Only the device's local date comes from its clock.
 export const GOAL = 22000;
 export const LIMIT = 25000;
+export const COMMUTE_KM = 44;
 export const FIRST = '2026-11-02';
 export const START_KM = 114695;
 export const KNOWN = {date: '2026-11-19', km: 115758};
 const DAY_MS = 86400000;
 export const defaults = () => ({
-  workWeek: [0, 1, 2, 3, 4], workKm: 44, tripKm: 72, usualTrips: 2, shopping: 40, margin: 15
+  workWeek: [0, 1, 2, 3, 4], workKm: COMMUTE_KM, tripKm: 72, usualTrips: 2, shopping: 40, margin: 15
 });
 export function day(s) {
   if (typeof s !== 'string' || !/^(19|20|21)\d{2}-\d{2}-\d{2}$/.test(s)) throw Error('Ugyldig kalenderdato.');
@@ -79,6 +80,9 @@ export function analyze(state, today) {
   }
   return {rows,byDate,conflicts,baseline,last,age,used,pace,paceLow,elapsed,elapsedHi,year,reason,needsReading};
 }
+export function isWorkDate(state,date) {
+  return state.settings.workWeek.includes(weekday(day(date))) && !state.off.some(r=>r.from<=date && date<=r.to);
+}
 function costs(state, start, end, partial) {
   const days=Math.max(0,end-start), workWeek=new Set(state.settings.workWeek);
   const off=state.off.map(r=>[day(r.from),day(r.to)]);
@@ -86,8 +90,9 @@ function costs(state, start, end, partial) {
   let work=0, workDays=0, extra=0;
   for (let d=start;d<end;d++) {
     const scheduled=workWeek.has(weekday(d)) && !off.some(([a,b])=>d>=a && d<=b);
-    let commute=scheduled?state.settings.workKm:0, booked=trips.get(d)??0;
+    let commute=scheduled?COMMUTE_KM:0, booked=trips.get(d)??0;
     if (partial && iso(d)===partial.date) {
+      // An explicit remainder in an older reading applies only to that one date.
       commute=partial.workLeft;
       // A plan is the total for the entire date, including the portion already on the odometer.
       booked=Math.max(0,booked-(partial.booked-partial.extraLeft));
@@ -99,7 +104,26 @@ function costs(state, start, end, partial) {
   return {days,work,workDays,shopping,margin,extra,total:work+shopping+margin+extra};
 }
 export function plan(state, today, period='this') {
-  const a=analyze(state,today), now=day(today), y=a.year;
+  return periodPlan(state,day(today),period,analyze(state,today),0);
+}
+export function overview(state,today) {
+  const analysis=analyze(state,today), now=day(today);
+  const provisional=analysis.needsReading && analysis.used!==null && analysis.age>=0 && analysis.age<=3 &&
+    analysis.last.date>=iso(analysis.year.start);
+  let gap=0;
+  if (provisional) {
+    // An undated time of day leaves the whole reading day open. No estimate is ever written to history.
+    const last=analysis.last, from=day(last.date)+(last.phase==='end'?1:0), days=now-from;
+    const missed=costs(state,from,now,last.phase==='mid'?last:null);
+    const usualFun=Math.ceil(days*state.settings.usualTrips*state.settings.tripKm/7);
+    gap=Math.max(Math.ceil(GOAL*days/analysis.year.days),missed.total+usualFun);
+  }
+  const basis=provisional?{...analysis,reason:''}:analysis;
+  const periods=['this','next','four'].map(period=>periodPlan(state,now,period,basis,gap));
+  return {analysis,periods,provisional,gap};
+}
+function periodPlan(state,now,period,a,gap) {
+  const y=a.year;
   const first=now+(a.age===0 && a.last?.phase==='end'?1:0);
   const nextMonday=now-weekday(now)+7;
   const start=period==='next'?Math.max(first,nextMonday):first;
@@ -108,14 +132,14 @@ export function plan(state, today, period='this') {
   const base={...a,first,start,end,clipped:requestedEnd>y.end,period};
   if (a.reason) return {...base,ready:false};
   if (end<=start) return {...base,ready:false,reason:start>=y.end?
-    'Perioden ligger i næste kørselsår. En målt startstand skal være klar først.':'Ugens kørsel er afsluttet. Vælg næste uge.'};
+    'Afventer startstanden for næste kørselsår.':'Ugens kørsel er afsluttet.'};
   const partial=a.age===0 && a.last.phase==='mid'?a.last:null;
   const before=costs(state,first,start,partial), here=costs(state,start,end,partial), after=costs(state,end,y.end,partial);
   const targetAt=d=>Math.floor(GOAL*(d-y.start)/y.days);
-  const remaining=GOAL-a.used;
+  const spent=a.used+gap, remaining=GOAL-spent;
   // Keep the previous window spendable, including essential costs even when the target is tight.
-  const bridge=before.days?Math.max(before.total,Math.min(targetAt(start)-a.used,remaining-here.total-after.total)):0;
-  const envelope=targetAt(end)-a.used-bridge;
+  const bridge=before.days?Math.max(before.total,Math.min(targetAt(start)-spent,remaining-here.total-after.total)):0;
+  const envelope=targetAt(end)-spent-bridge;
   const annualCap=remaining-bridge-after.total;
   const allowed=Math.max(0,Math.min(envelope,annualCap));
   const fun=Math.max(0,allowed-here.total);
