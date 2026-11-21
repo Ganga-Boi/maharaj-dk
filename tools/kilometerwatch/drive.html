@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="da">
+<head>
+<base href="/tools/kilometerwatch/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#091a24">
+<meta name="description" content="Dit kilometerbudget til arbejde og fornøjelser i Renault Zoe.">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<link rel="stylesheet" href="./style-v16.css">
+<title>Renault Zoe · KilometerWatch</title>
+</head>
+<body><main class="wrap">
+<header class="mast">
+  <div class="brand-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 17a9 9 0 0 1 18 0M12 13l6-6M7 21h10"/><circle cx="12" cy="13" r="2"/></svg></div>
+  <div class="brand"><small>RENAULT ZOE</small><strong>KilometerWatch</strong></div>
+  <button class="menu-trigger" id="menuButton" aria-controls="menu" aria-expanded="false" aria-label="Åbn menu"><span aria-hidden="true">☰</span> Menu</button>
+</header>
+<nav id="menu" aria-label="Hovedmenu" hidden>
+  <button data-go="home">Forside</button><button data-go="history">Historik</button>
+  <button data-go="backup">Sikkerhedskopiering og import</button><button data-go="settings">Kørselsindstillinger</button>
+  <button data-go="details">Beregninger og prognose</button>
+</nav>
+<noscript>Slå JavaScript til for at åbne KilometerWatch.</noscript>
+<p id="notice" role="status" class="notice" hidden></p>
+<section id="home" aria-labelledby="homeTitle">
+  <div class="card hero">
+    <h1 id="homeTitle">Plads til lidt sjov?</h1>
+    <div class="periods" role="group" aria-label="Vælg periode">
+      <button data-period="this" aria-pressed="true">Denne uge</button><button data-period="next" aria-pressed="false">Næste uge</button><button data-period="four" aria-pressed="false">4 uger</button>
+    </div>
+    <div aria-live="polite" aria-atomic="true">
+      <p class="range" id="range"></p>
+      <div class="hero-number"><strong id="fun">—</strong> <span>km</span></div>
+      <p class="caption">til fornøjelser <span>· skøn</span></p>
+      <div class="trip" id="tripBox" hidden><strong id="trips"></strong><span id="left"></span></div>
+      <p class="advice" id="advice"></p>
+    </div>
+  </div>
+  <div class="card summary">
+    <div class="fact"><div><span id="readingLabel">Seneste aflæsning</span><small id="lastDate"></small></div><strong id="lastKm">—</strong></div>
+    <div class="fact"><div><span>Årsmål</span><small>22.000 km</small></div><div class="status-value"><strong id="yearStatus">—</strong><small id="yearQualifier" hidden></small></div></div>
+    <button id="newReading" class="primary wide"><span aria-hidden="true">＋</span> Ny kilometeraflæsning</button>
+  </div>
+</section>
+<section id="history" hidden>
+  <button data-go="home" class="back">‹ Forside</button><h1>Historik</h1>
+  <div id="flags"></div>
+  <div class="card"><div class="line"><h2>Aflæsninger</h2><button id="historyAdd" class="minor">Tilføj aflæsning</button></div>
+  <p class="hint" id="historyCount"></p><div id="historyRows"></div></div>
+  <div id="recoveryBox" class="card" hidden><h2>Kun fundet i ældre kopier</h2>
+    <p class="hint">Disse aflæsninger kan være fortrudt i en tidligere version. Vælg dem, du genkender.</p><div id="recoveryRows"></div></div>
+</section>
+<section id="backup" hidden>
+  <button data-go="home" class="back">‹ Forside</button><h1>Sikkerhedskopiering og import</h1>
+  <div class="card"><h2>Gem en kopi</h2><p class="hint">JSON-filen indeholder aflæsninger, afklaringer, indstillinger og datoplaner.</p>
+    <button id="download" class="primary">Hent sikkerhedskopi</button></div>
+  <div class="card"><h2>Gendan eller sammenflet</h2><p class="hint">Du får vist, hvad kopien indeholder, før den bruges. Nyere aflæsninger på telefonen bevares.</p>
+    <div class="actions"><button id="pickFile">Vælg JSON-fil</button><button id="previous">Hent seneste lokale kopi</button></div>
+    <input hidden id="file" type="file" accept=".json,application/json"></div>
+  <div class="card"><h2>Oprindelige kilometerdata</h2><p class="hint">Gem de oprindelige kilometerfelter, hvis du vil undersøge en ældre eller beskadiget historik.</p>
+    <div class="actions"><button id="downloadRaw">Hent rå kilometerdata</button><button id="original">Vis kopi fra før opdatering</button></div></div>
+</section>
+<section id="settings" hidden>
+  <button data-go="home" class="back">‹ Forside</button><h1>Kørselsindstillinger</h1>
+  <form id="settingsForm" class="card"><h2>Din normale uge</h2>
+    <fieldset class="week"><legend>Arbejdsdage</legend><div id="weekdays"></div></fieldset>
+    <div class="fields">
+      <label>Arbejde tur/retur (km)<input id="workKm" type="number" min="0" max="500" required></label>
+      <label>København tur/retur (km)<input id="tripKm" type="number" min="1" max="2000" required></label>
+      <label class="span">Sædvanlige København-ture pr. uge<input id="usualTrips" type="number" min="0" max="28" required></label>
+    </div><h3>Reserver pr. uge</h3><p class="hint">Småture og sikkerhedsmargin er dine skøn. De fordeles på kalenderdagene.</p>
+    <div class="fields"><label>Indkøb og småture (km)<input id="shopping" type="number" min="0" max="5000" required></label>
+    <label>Sikkerhedsmargin (km)<input id="margin" type="number" min="0" max="5000" required></label></div>
+    <button class="primary" type="submit">Gem indstillinger</button>
+  </form>
+  <div class="card"><h2>Ferie og fridage</h2><p class="hint">Der reserveres ingen pendling på disse datoer. Tilføj også helligdage, hvor du har fri.</p>
+    <form id="offForm"><div class="fields"><label>Fra og med<input id="offFrom" type="date" required></label>
+      <label>Til og med<input id="offTo" type="date" required></label></div><button>Tilføj friperiode</button></form><div id="offRows"></div></div>
+  <div class="card"><h2>Planlagt ekstrakørsel</h2><p class="hint">Angiv hele dagens ekstrakørsel, fx en ferietur. Medtag også den del, du allerede har kørt. Den trækkes fra ved en undervejsaflæsning.</p>
+    <form id="extraForm"><div class="fields"><label>Dato<input id="extraDate" type="date" required></label><label>Ekstra kilometer<input id="extraKm" type="number" min="1" max="10000" required></label></div>
+    <button>Gem ekstrakørsel</button></form><div id="extraRows"></div></div>
+</section>
+<section id="details" hidden>
+  <button data-go="home" class="back">‹ Forside</button><h1>Beregninger og prognose</h1>
+  <div class="card"><h2 id="detailPeriod">Periodens budget</h2><div id="breakdown"></div></div>
+  <div class="card"><h2>Kørselsåret</h2><p id="yearRange" class="hint"></p><div id="yearNumbers"></div><p id="projection" class="hint"></p></div>
+  <details class="card"><summary>Sådan beregnes råderummet</summary>
+    <p>Målet på 22.000 km fordeles over kørselsårets faktiske 365 eller 366 dage. Ved periodens slutdato trækkes det målte forbrug siden årsskiftet fra. Overskud og underskud følger med.</p>
+    <p>For næste uge afsættes først denne uges råderum eller dens faste kørsel, hvis den er højere. Arbejde, ekstrature, småture og sikkerhed resten af året begrænser også, hvor meget der kan bruges nu.</p>
+    <p>En morgenaflæsning starter budgettet i dag. Undervejs bruges de km, du oplyser er tilbage i dag. En aftenaflæsning lukker dagen. Gårsdagens afsluttende aflæsning kan vise et skøn fra dagens start.</p>
+    <p>Arbejdsdage og friperioder følger kalenderen. Reserver rundes op, råderum og antal ture ned. De tre perioder overlapper. Fire uger er 28 dage fra første åbne køredag, afkortet ved kørselsårets slutning.</p>
+    <p>Den absolutte grænse på 25.000 km vises særskilt. En lang tur indgår én gang via kilometertælleren. Den gøres aldrig til en ny ugentlig vane.</p>
+    <p>Ved et nyt kørselsår bruges en aflæsning før kørsel 2. november eller efter sidste tur 1. november. En kendt historisk startstand kan tilføjes i Historik.</p>
+  </details>
+</section>
+<footer>KilometerWatch · v16</footer>
+</main>
+<dialog id="entryDialog" aria-labelledby="entryTitle"><form id="entryForm">
+  <h2 id="entryTitle">Ny kilometeraflæsning</h2>
+  <label>Dato<input id="entryDate" type="date" required></label>
+  <label>Kilometerstand<input id="entryKm" inputmode="numeric" autocomplete="off" placeholder="Aflæs bilens kilometertæller" required></label>
+  <label>Hvornår er bilen aflæst?<select id="phase" required>
+    <option value="">Vælg tidspunkt</option><option value="start">Før dagens første tur</option>
+    <option value="mid">Undervejs i dagens kørsel</option><option value="end">Efter dagens sidste tur</option></select></label>
+  <div id="midFields" hidden><label>Arbejdskilometer tilbage i dag<input id="workLeft" type="number" min="0" max="1000" placeholder="Fx 22 km hjem"></label>
+    <label id="extraLeftLabel" hidden>Planlagt ekstrakørsel tilbage i dag (km)<input id="extraLeft" type="number" min="0"></label>
+    <p class="hint">Dagens reserve til småture og sikkerhed medregnes fuldt ud.</p></div>
+  <p id="entryError" role="alert" class="error" hidden></p>
+  <div class="actions"><button type="submit" class="primary">Gem aflæsning</button><button type="button" id="cancelEntry">Annuller</button></div>
+</form></dialog>
+<dialog id="importDialog" aria-labelledby="importTitle"><h2 id="importTitle">Gennemse kopien</h2>
+ <p id="importStats"></p><p id="importLast" class="hint"></p><p id="importFlags" class="hint"></p>
+ <label id="planLabel" class="check"><input id="usePlan" type="checkbox"><span id="planText"></span></label>
+ <p id="importError" class="error" role="alert" hidden></p>
+ <div class="actions"><button id="applyImport" class="primary">Sammenflet</button><button id="cancelImport">Annuller</button></div>
+</dialog>
+<script type="module" src="./app-v16.js"></script>
+</body></html>
