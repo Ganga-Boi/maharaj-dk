@@ -64,17 +64,20 @@ export function analyze(state, today) {
   const elapsedHi=elapsed+(last?.phase==='mid'?1:0);
   const pace=elapsed>0 && used!==null && used>=0 ? used*365.2425/elapsed : null;
   const paceLow=pace!==null?used*365.2425/elapsedHi:null;
-  let reason='';
+  let reason='', needsReading=false;
   if (conflicts.length) reason='Afklar de modstridende aflæsninger i Historik.';
   else if (state.issues.some(i=>i.block && !i.seen)) reason='Tjek de ulæste historikdata i Historik.';
   else if (age!==null && age<0) reason='En aflæsning ligger efter telefonens dato. Kontrollér datoen i Historik.';
   else if (today<FIRST) reason='Årsperioden begynder 2. november 2026.';
   else if (!baseline) reason='Tilføj en målt startstand for det nye kørselsår i Historik.';
-  else if (!last || used===null || (last.date < iso(year.start) && age!==1)) reason='Tilføj en aktuel kilometeraflæsning.';
-  else if (age>1) reason='Aflæsningen er '+age+' dage gammel. Indtast kilometerstanden for et nyt råd.';
-  else if (last.phase==='unknown' || (age===1 && last.phase!=='end'))
-    reason=last.phase==='unknown'?'Sidste måling har kun en dato. Aflæs bilen for at se dit råderum.':'Kørsel efter gårsdagens måling er ukendt. Aflæs bilen for at se dit råderum.';
-  return {rows,byDate,conflicts,baseline,last,age,used,pace,paceLow,elapsed,elapsedHi,year,reason};
+  else {
+    if (!last || used===null || (last.date < iso(year.start) && age!==1)) reason='Tilføj en aktuel kilometeraflæsning.';
+    else if (age>1) reason='Aflæsningen er '+age+' dage gammel. Indtast kilometerstanden for et nyt råd.';
+    else if (last.phase==='unknown' || (age===1 && last.phase!=='end'))
+      reason=last.phase==='unknown'?'Sidste måling har kun en dato. Aflæs bilen for at se dit råderum.':'Kørsel efter gårsdagens måling er ukendt. Aflæs bilen for at se dit råderum.';
+    needsReading=Boolean(reason);
+  }
+  return {rows,byDate,conflicts,baseline,last,age,used,pace,paceLow,elapsed,elapsedHi,year,reason,needsReading};
 }
 function costs(state, start, end, partial) {
   const days=Math.max(0,end-start), workWeek=new Set(state.settings.workWeek);

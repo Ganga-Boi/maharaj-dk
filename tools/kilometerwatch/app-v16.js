@@ -75,7 +75,17 @@ function advice(p) {
   }
   return words.join(' ');
 }
+const readingPrompt=button('Indtast kilometerstand',openEntry);
+readingPrompt.className='primary wide';
+readingPrompt.hidden=true;
+$('homeTitle').after(readingPrompt);
+function showReadingPrompt(show) {
+  write('homeTitle',show?'Hvad står kilometertælleren på i dag?':'Plads til lidt sjov?');
+  readingPrompt.hidden=!show;
+  document.querySelector('#home .periods').hidden=$('range').parentElement.hidden=$('newReading').hidden=show;
+}
 function renderHome(p) {
+  showReadingPrompt(p.needsReading);
   document.querySelectorAll('[data-period]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.period===period)));
   write('range',periodRange(p));write('fun',p.ready?fmt(p.fun):'—');
   $('fun').parentElement.classList.toggle('pending',!p.ready);
@@ -188,6 +198,7 @@ function render() {
   $('newReading').disabled=$('historyAdd').disabled=$('download').disabled=!!fatal;
   $('previous').disabled=!safeGet(PREVIOUS);$('original').disabled=!safeGet(ORIGINAL) || safeGet(ORIGINAL)==='{"app":"KilometerWatch","version":15,"keys":{}}';
   if (fatal) {
+    showReadingPrompt(false);
     write('range','Råderum afventer historik');write('fun','—');$('tripBox').hidden=true;message('advice',fatal+' Åbn Sikkerhedskopiering og import.');
     write('lastKm','—');write('lastDate','');write('yearStatus','Afventer historik');message('yearQualifier','');
     if(screen==='history'){$('flags').replaceChildren();flag('Historik utilgængelig',fatal);$('historyRows').replaceChildren();$('recoveryBox').hidden=true;write('historyCount','');}
