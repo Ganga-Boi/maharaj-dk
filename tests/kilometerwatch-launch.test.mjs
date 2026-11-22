@@ -29,6 +29,15 @@ test('direct link serves the same dashboard as the existing installed app',()=>{
   assert.ok(routing.rewrites.some(rule=>rule.source===start.pathname && rule.destination===installed.pathname));
 });
 
+test('initial app markup shows only the main budget and has no accordion menu',async()=>{
+  const page=await readFile(new URL('../tools/kilometerwatch/drive.html',import.meta.url),'utf8');
+  const visibleSections=[...page.matchAll(/<section\b[^>]*>/g)].map(match=>match[0]).filter(tag=>!(/\bhidden\b/.test(tag)));
+  assert.equal(visibleSections.length,1);
+  assert.match(visibleSections[0],/id="home"/);
+  assert.doesNotMatch(page,/<(?:details|summary|nav)\b/i);
+  assert.match(page,/<button id="newReading"[^>]*>Opdatér kilometerstand<\/button>\s*<\/div>\s*<\/section>/);
+});
+
 test('online launches on both links revalidate the dashboard even with a saved copy',async()=>{
   for(const path of ['drive','start']){
     let fetched;

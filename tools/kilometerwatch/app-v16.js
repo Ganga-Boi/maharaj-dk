@@ -55,7 +55,14 @@ function periodCard(p,blocked) {
     let dates=dateText(iso(p.start),false,single?'long':'short');
     if(!single)dates+=' – '+dateText(iso(p.end-1),false,'short');
     if(p.clipped)dates+=' · til kørselsårets slutning';
-    heading.append(node('small',dates));
+    const range=node('small',dates);
+    if(p.period==='next') {
+      const edit=button(dates,()=>{location.hash='settings';});
+      edit.className='inline-action';edit.title='Planlæg ferie eller ekstrakørsel';
+      edit.setAttribute('aria-label',dates+' · planlæg ferie, ekstrature og reserver');
+      range.replaceChildren(edit);
+    }
+    heading.append(range);
   }
   card.append(heading);
   if (!p.ready) {
@@ -97,13 +104,21 @@ function renderHome(view) {
   }
   message('yearQualifier',pace);
 }
-function openFromLink() {
+function openFromLink(event) {
   const key=location.hash.slice(1);
-  if(['history','backup','settings'].includes(key)) {
-    $(key).open=true;$(key).scrollIntoView();
-  } else if(key==='details' || key==='home') $('home').scrollIntoView();
+  const sections=['history','backup','settings'];
+  const isBudget=!sections.includes(key);
+  for(const id of sections) $(id).hidden=id!==key;
+  $('home').hidden=!isBudget;$('toBudget').hidden=isBudget;
+  if(event) inform('');
+  render();
+  window.scrollTo(0,0);
+  if(event) $(isBudget?'homeTitle':key+'Title').focus({preventScroll:true});
 }
 window.addEventListener('hashchange',openFromLink);
+$('toBudget').onclick=()=>{location.hash='home';};
+$('readingLabel').onclick=()=>{location.hash='history';};
+$('historyBackup').onclick=()=>{location.hash='backup';};
 function row(parent,title,subtitle,action) {
   const item=node('div','','list-row'), t=node('div','');
   t.append(node('strong',title),node('small',subtitle));item.append(t);if(action)item.append(action);parent.append(item);
@@ -165,11 +180,12 @@ function renderSettings(s) {
 function render() {
   renderedDate=localDate();
   if(!book)return;
-  $('newReading').disabled=$('historyAdd').disabled=$('download').disabled=!!fatal;
+  $('historyAdd').disabled=$('download').disabled=!!fatal;
   $('previous').disabled=!safeGet(PREVIOUS);$('original').disabled=!safeGet(ORIGINAL) || safeGet(ORIGINAL)==='{"app":"KilometerWatch","version":15,"keys":{}}';
   $('settings').querySelectorAll('input,button').forEach(el=>{el.disabled=!!fatal;});
   if (fatal) {
-    write('basis',fatal+' Du kan gendanne historikken nederst på siden.');
+    write('basis',fatal);
+    write('newReading','Gendan aflæsninger');$('newReading').onclick=()=>{location.hash='backup';};
     $('basis').classList.add('warn');
     $('budgets').replaceChildren(...Object.keys(periodNames).map(period=>periodCard({period},true)));
     write('lastKm','—');write('lastDate','');write('readingLabel','Seneste aflæsning');
@@ -180,16 +196,18 @@ function render() {
   }
   const s=book.state, view=overview(s,renderedDate), a=view.analysis;
   a.stateIssue=s.issues.some(i=>i.block && !i.seen);
+  const review=a.conflicts.length || a.stateIssue || a.age<0 || (!a.baseline && renderedDate>=FIRST);
+  write('newReading',review?'Afklar aflæsninger':'Opdatér kilometerstand');
+  $('newReading').onclick=review?()=>{location.hash='history';}:openEntry;
   renderHome(view);
-  if ($('history').open) {
+  if (!$('history').hidden) {
     renderHistory(a);
     const valid=a.used!==null && !a.stateIssue && !a.conflicts.length && a.age>=0;
     write('yearBalance',valid?km(a.used)+' kørt i kørselsåret ved seneste måling. '+km(Math.abs(GOAL-a.used))+
       (a.used>GOAL?' over årsmålet.':' til årsmålet.'):'');
   }
-  if ($('settings').open) renderSettings(s);
+  if (!$('settings').hidden) renderSettings(s);
 }
-for (const key of ['history','settings']) $(key).addEventListener('toggle',()=>{if($(key).open)render();});
 function okNumber(raw) {
   const value=raw.trim();
   if (!/^\d{1,7}$/.test(value) && !/^\d{1,3}([. ]\d{3}){1,2}$/.test(value)) throw Error('Skriv hele kilometerstanden, fx 115758 eller 115.758.');
@@ -212,7 +230,7 @@ function openEntry() {
   inform('');entryToken=book.raw;$('entryForm').reset();$('entryDate').value=$('entryDate').max=localDate();
   message('entryError','');midFields(true);$('entryDialog').showModal();$('entryKm').focus();
 }
-$('newReading').onclick=$('historyAdd').onclick=openEntry;
+$('historyAdd').onclick=openEntry;
 $('cancelEntry').onclick=()=>$('entryDialog').close();
 $('phase').onchange=$('entryDate').onchange=()=>midFields(true);
 $('entryForm').onsubmit=async e=>{
@@ -303,7 +321,7 @@ window.addEventListener('storage',async e=>{
 function checkDate(){if(renderedDate!==localDate())render();}
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkDate();});
 window.addEventListener('focus',checkDate);setInterval(checkDate,30000);
-await reloadBook();render();openFromLink();
+await reloadBook();openFromLink();
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{
   inform('Offlinekopien kunne ikke opdateres. Åbn appen igen med forbindelse.',true);
 });

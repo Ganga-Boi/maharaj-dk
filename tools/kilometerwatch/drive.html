@@ -9,7 +9,7 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<link rel="stylesheet" href="./style-v16.css?front=4">
+<link rel="stylesheet" href="./style-v16.css?front=6">
 <title>Renault Zoe · KilometerWatch</title>
 </head>
 <body><main class="wrap">
@@ -19,17 +19,18 @@
 </header>
 <noscript>Slå JavaScript til for at åbne KilometerWatch.</noscript>
 <p id="notice" role="status" class="notice" hidden></p>
+<button id="toBudget" class="return" type="button" hidden>‹ Tilbage til budgettet</button>
 <section id="home" aria-labelledby="homeTitle">
-  <h1 id="homeTitle">Plads til lidt sjov?</h1>
+  <h1 id="homeTitle" tabindex="-1">Plads til lidt sjov?</h1>
   <p id="basis" class="basis"></p>
   <div id="budgets" aria-label="Kilometer til fornøjelse"></div>
   <div class="car-data">
-    <div class="fact"><div><span id="readingLabel">Seneste aflæsning</span><small id="lastDate"></small></div><strong id="lastKm">—</strong></div>
+    <div class="fact"><div><button id="readingLabel" class="inline-action" type="button" aria-controls="history" title="Se kilometerhistorik">Seneste aflæsning</button><small id="lastDate"></small></div><strong id="lastKm">—</strong></div>
     <div class="fact"><span>Årsmål · 22.000 km</span><div class="status-value"><strong id="yearStatus">—</strong><small id="yearQualifier" hidden></small></div></div>
     <button id="newReading" class="primary wide">Opdatér kilometerstand</button>
   </div>
 </section>
-<details class="utility" id="settings"><summary>Ferie, ekstrature og reserver</summary>
+<section id="settings" aria-labelledby="settingsTitle" hidden><h1 id="settingsTitle" tabindex="-1">Ferie, ekstrature og reserver</h1>
 
   <form id="settingsForm" class="card"><h2>Din normale uge</h2>
     <div class="fields">
@@ -46,16 +47,17 @@
   <div class="card"><h2>Planlagt ekstrakørsel</h2><p class="hint">Angiv hele dagens ekstrakørsel, fx en ferietur. Medtag også den del, du allerede har kørt. Den trækkes fra ved en undervejsaflæsning.</p>
     <form id="extraForm"><div class="fields"><label>Dato<input id="extraDate" type="date" min="1900-01-01" max="2199-12-31" required></label><label>Ekstra kilometer<input id="extraKm" type="number" min="1" max="10000" required></label></div>
     <button>Gem ekstrakørsel</button></form><div id="extraRows"></div></div>
-</details>
-<details class="utility" id="history"><summary>Historik</summary>
+</section>
+<section id="history" aria-labelledby="historyTitle" hidden><h1 id="historyTitle" tabindex="-1">Kilometerhistorik</h1>
 
   <div id="flags"></div><p id="yearBalance" class="hint"></p>
   <div class="card"><div class="line"><h2>Aflæsninger</h2><button id="historyAdd" class="minor">Tilføj aflæsning</button></div>
   <p class="hint" id="historyCount"></p><div id="historyRows"></div></div>
   <div id="recoveryBox" class="card" hidden><h2>Kun fundet i ældre kopier</h2>
     <p class="hint">Disse aflæsninger kan være fortrudt i en tidligere version. Vælg dem, du genkender.</p><div id="recoveryRows"></div></div>
-</details>
-<details class="utility" id="backup"><summary>Sikkerhedskopi og import</summary>
+  <button id="historyBackup" type="button">Gem eller gendan en kopi</button>
+</section>
+<section id="backup" aria-labelledby="backupTitle" hidden><h1 id="backupTitle" tabindex="-1">Sikkerhedskopi og import</h1>
 
   <div class="card"><h2>Gem en kopi</h2><p class="hint">JSON-filen indeholder aflæsninger, afklaringer, indstillinger og datoplaner.</p>
     <button id="download" class="primary">Hent sikkerhedskopi</button></div>
@@ -64,8 +66,7 @@
     <input hidden id="file" type="file" accept=".json,application/json"></div>
   <div class="card"><h2>Oprindelige kilometerdata</h2><p class="hint">Gem de oprindelige kilometerfelter, hvis du vil undersøge en ældre eller beskadiget historik.</p>
     <div class="actions"><button id="downloadRaw">Hent rå kilometerdata</button><button id="original">Vis kopi fra før opdatering</button></div></div>
-</details>
-<footer>KilometerWatch · v16</footer>
+</section>
 </main>
 <dialog id="entryDialog" aria-labelledby="entryTitle"><form id="entryForm">
   <h2 id="entryTitle">Ny kilometeraflæsning</h2>
@@ -90,5 +91,5 @@
  <p id="importError" class="error" role="alert" hidden></p>
  <div class="actions"><button id="applyImport" class="primary">Sammenflet</button><button id="cancelImport">Annuller</button></div>
 </dialog>
-<script type="module" src="./app-v16.js?front=4"></script>
+<script type="module" src="./app-v16.js?front=6"></script>
 </body></html>
