@@ -1,5 +1,5 @@
 import {GOAL,LIMIT,FIRST,START_KM,day,iso,localDate,dateText,fmt,keyOf,analyze,overview,COMMUTE_KM,isWorkDate} from './model-v16.js?front=4';
-import {STORE,PREVIOUS,ORIGINAL,LIVE,loadBook,commit,locked,checkSettings,addReading,portable,rawBackup,parseBackup,mergeBook,repairBase} from './data-v16.js?front=4';
+import {STORE,PREVIOUS,ORIGINAL,LIVE,loadBook,commit,locked,checkSettings,addReading,portable,rawBackup,parseBackup,mergeBook,repairBase,isCorrectedReading} from './data-v16.js?front=7';
 const $=id=>document.getElementById(id);
 const periodNames={this:'Resten af ugen',next:'Næste uge',four:'Næste 4 hele uger'};
 const phaseNames={start:'Før første tur',mid:'Undervejs',end:'Efter sidste tur',unknown:'Tidspunkt ukendt'};
@@ -151,13 +151,16 @@ function renderHistory(p) {
   for (const r of s.readings.slice().reverse().slice(0,shownHistory)) {
     const omitted=excluded.has(keyOf(r)), fixed=r.date===FIRST && r.km===START_KM;
     row(list,km(r.km),dateText(r.date,true)+' · '+(omitted?'Udeladt':phaseNames[r.phase])+(r.label?' · '+r.label:''),
-      fixed?null:button(omitted?'Medtag igen':'Udelad',()=>toggleRow(r,omitted)));
+      fixed || isCorrectedReading(r)?null:button(omitted?'Medtag igen':'Udelad',()=>toggleRow(r,omitted)));
   }
   if(s.readings.length>shownHistory)list.append(button('Vis flere aflæsninger',()=>{shownHistory+=35;render();}));
   $('recoveryBox').hidden=!s.recovery.length;
   const recovery=$('recoveryRows');recovery.replaceChildren();
-  for(const r of s.recovery.slice().reverse().slice(0,shownRecovery)) row(recovery,km(r.km),dateText(r.date,true),
-    button('Medtag',()=>change(t=>{t.readings.push(r);t.recovery=t.recovery.filter(x=>keyOf(x)!==keyOf(r));},'Aflæsningen er tilføjet til historikken.')));
+  for(const r of s.recovery.slice().reverse().slice(0,shownRecovery)) {
+    const corrected=isCorrectedReading(r);
+    row(recovery,km(r.km),dateText(r.date,true)+(corrected?' · Forkert dato · rettet efter batteritesten':''),
+      corrected?null:button('Medtag',()=>change(t=>{t.readings.push(r);t.recovery=t.recovery.filter(x=>keyOf(x)!==keyOf(r));},'Aflæsningen er tilføjet til historikken.')));
+  }
   if(s.recovery.length>shownRecovery)recovery.append(button('Vis flere fra kopier',()=>{shownRecovery+=25;render();}));
 }
 function renderSettings(s) {

@@ -1,6 +1,6 @@
 // Install a complete application shell before switching the installed PWA to it.
-const CACHE='kilometerwatch-v16-calendar-maharaj-6';
-const ASSETS=['./drive','./manifest.webmanifest','./style-v16.css?front=6','./model-v16.js?front=4','./data-v16.js?front=4','./app-v16.js?front=6','./icon-192.png','./icon-512.png'];
+const CACHE='kilometerwatch-v16-calendar-maharaj-7';
+const ASSETS=['./drive','./manifest.webmanifest','./style-v16.css?front=6','./model-v16.js?front=4','./data-v16.js?front=7','./app-v16.js?front=7','./icon-192.png','./icon-512.png'];
 const urls=new Set(ASSETS.map(path=>new URL(path,self.registration.scope).href));
 const home=new URL('./drive',self.registration.scope).href;
 const launchPaths=new Set(['./','./drive','./start'].map(path=>new URL(path,self.registration.scope).pathname));

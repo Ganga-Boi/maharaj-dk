@@ -1,4 +1,4 @@
-import {FIRST,START_KM,KNOWN,day,defaults,keyOf,order,analyze} from './model-v16.js?front=4';
+import {FIRST,START_KM,KNOWN as OLD_REFERENCE,day,defaults,keyOf,order,analyze} from './model-v16.js?front=4';
 
 export const STORE='kilometerwatch.v16.state';
 export const PREVIOUS='kilometerwatch.v16.previous';
@@ -15,6 +15,15 @@ const object=v=>v!==null && typeof v==='object' && !Array.isArray(v);
 const owns=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
 const num=(v,min,max)=>Number.isSafeInteger(v) && v>=min && v<=max;
 const bounds={workKm:[0,500],tripKm:[1,2000],usualTrips:[0,28],shopping:[0,5000],margin:[0,5000]};
+const testLabel='Batteritest · november 2026';
+const references=[
+  {date:FIRST,km:START_KM,phase:'start',opening:true,label:'Årets dokumenterede startstand'},
+  {date:'2026-11-17',km:115758,phase:'end',label:testLabel},
+  {date:'2026-11-18',km:115758,phase:'start',opening:true,label:testLabel},
+  {date:'2026-11-19',km:115923,phase:'end',label:testLabel}
+];
+const referenceKeys=new Set(references.map(keyOf));
+export const isCorrectedReading=r=>r.date===OLD_REFERENCE.date && r.km===OLD_REFERENCE.km;
 function check(condition,message) {if (!condition) throw Error(message);}
 function checkList(value,max=50000) {check(Array.isArray(value) && value.length<=max,'Ugyldig eller for stor liste.');return value;}
 function kmValue(value) {
@@ -55,9 +64,13 @@ function issue(s,message,block=false) {
   if (!s.issues.some(i=>i.message===message)) s.issues.push({message,block,seen:false});
 }
 function seed(s,today) {
-  const fixed=[{date:FIRST,km:START_KM,phase:'start',opening:true,label:'Årets dokumenterede startstand'},
-    {...KNOWN,phase:'unknown',label:'Dokumenteret historisk aflæsning'}].filter(r=>r.date<=today);
-  s.readings=foldRows(s.readings,fixed);
+  s.readings=foldRows(s.readings,references.filter(r=>r.date<=today));
+  const incorrect=s.readings.find(isCorrectedReading);
+  if (incorrect) {
+    incorrect.label='Forkert dato · rettet efter batteritesten';
+    const key=keyOf(incorrect);
+    if(!s.excluded.includes(key))s.excluded.push(key);
+  }
 }
 export function checkSettings(v) {
   check(object(v),'Ugyldige kørselsindstillinger.');
@@ -168,14 +181,13 @@ export function loadBook(storage,today) {
   const raw=storage.getItem(STORE);
   if (raw!==null) {
     const state=checkState(JSON.parse(raw));
+    const before=JSON.stringify(state);
     // A v15 tab can remain open while the installed app upgrades. Pick up later odometer edits.
     const legacy=readLegacy(legacyValues(storage,LIVE),today);
-    const rows=foldRows(state.readings,legacy.readings);
-    const newIssues=legacy.issues.filter(i=>!state.issues.some(x=>x.message===i.message));
-    if (rows.length!==state.readings.length || newIssues.length) {
-      state.readings=rows;state.issues.push(...newIssues);
-      return commit(storage,raw,state);
-    }
+    state.readings=foldRows(state.readings,legacy.readings);
+    state.issues.push(...legacy.issues.filter(i=>!state.issues.some(x=>x.message===i.message)));
+    seed(state,today);
+    if(JSON.stringify(state)!==before) return commit(storage,raw,state);
     return {state,raw};
   }
   const original=legacyValues(storage);
@@ -251,11 +263,12 @@ export function parseBackup(v,today) {
 }
 export function mergeBook(local,imported,usePlan,today) {
   const res=structuredClone(local), s=imported.state, oldKeys=new Set(res.readings.map(keyOf));
+  const restoringFresh=usePlan && imported.fullPlan && !Object.keys(local.confirmed).length &&
+    local.readings.every(r=>referenceKeys.has(keyOf(r)) || isCorrectedReading(r));
   res.readings=foldRows(res.readings,s.readings);
   res.recovery=foldRows(res.recovery,s.recovery);
   for (const k of s.excluded) {
-    const isSeedOnly=local.readings.some(r=>keyOf(r)===k && r.label==='Dokumenteret historisk aflæsning' && r.phase==='unknown');
-    const restoringFresh=usePlan && imported.fullPlan && !Object.keys(local.confirmed).length && local.readings.every(r=>r.date===FIRST || r.date===KNOWN.date);
+    const isSeedOnly=local.readings.some(r=>keyOf(r)===k && r.label===testLabel && referenceKeys.has(k));
     if (!oldKeys.has(k) || (isSeedOnly && restoringFresh)) res.excluded.push(k);
   }
   for (const [d,sig] of Object.entries(s.confirmed)) if (!res.confirmed[d]) res.confirmed[d]=sig;
@@ -276,6 +289,7 @@ export function repairBase(storage,today) {
 export function addReading(state,input,today) {
   const r=reading(input);
   check(r.date<=today,'En aflæsning kan ikke ligge i fremtiden.');
+  check(!isCorrectedReading(r),'Batteritesten daterer 115.758 km til 17. eller 18. november 2026.');
   const active=analyze(state,today).rows;
   const earlier=active.filter(o=>o.date<r.date).at(-1), later=active.find(o=>o.date>r.date);
   const same=active.filter(o=>o.date===r.date), top=same.at(-1);
