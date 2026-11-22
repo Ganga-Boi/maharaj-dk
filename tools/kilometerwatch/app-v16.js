@@ -1,7 +1,7 @@
-import {GOAL,LIMIT,FIRST,START_KM,day,iso,localDate,dateText,fmt,keyOf,analyze,overview,COMMUTE_KM,isWorkDate} from './model-v16.js?front=3';
-import {STORE,PREVIOUS,ORIGINAL,LIVE,loadBook,commit,locked,checkSettings,addReading,portable,rawBackup,parseBackup,mergeBook,repairBase} from './data-v16.js?front=3';
+import {GOAL,LIMIT,FIRST,START_KM,day,iso,localDate,dateText,fmt,keyOf,analyze,overview,COMMUTE_KM,isWorkDate} from './model-v16.js?front=4';
+import {STORE,PREVIOUS,ORIGINAL,LIVE,loadBook,commit,locked,checkSettings,addReading,portable,rawBackup,parseBackup,mergeBook,repairBase} from './data-v16.js?front=4';
 const $=id=>document.getElementById(id);
-const periodNames={this:'Resten af ugen',next:'Næste uge',four:'Næste 4 uger'};
+const periodNames={this:'Resten af ugen',next:'Næste uge',four:'Næste 4 hele uger'};
 const phaseNames={start:'Før første tur',mid:'Undervejs',end:'Efter sidste tur',unknown:'Tidspunkt ukendt'};
 const fields=['tripKm','usualTrips','shopping','margin'];
 const km=n=>fmt(n)+' km';
@@ -30,13 +30,10 @@ async function change(fn,success) {
 }
 function yearStatus(p) {
   if (p.conflicts.length || !p.baseline || p.used===null || p.age<0 || p.stateIssue) return ['Afventer afklaring',''];
-  if (p.used>=LIMIT) return [p.used===LIMIT?'Grænsen er nået':'Over 25.000 km','bad'];
-  if (p.used>=GOAL) return [p.used===GOAL?'Målet er opbrugt':'Over 22.000 km','warn'];
+  if (p.used>=GOAL) return [p.used===GOAL?'Årsmålet er nået':'Over årsmålet',p.used>=LIMIT?'bad':'warn'];
   if (p.pace===null) return ['Afventer flere målinger',''];
-  const qualifier=p.elapsed<28?'Foreløbigt skøn':'Skøn ved aflæsningen';
-  if (p.paceLow>LIMIT) return ['Tempo over grænsen','bad',qualifier];
-  if (p.pace>LIMIT) return ['Usikkert ved grænsen','warn',qualifier];
-  if (p.paceLow>GOAL) return ['Tempo over målet','warn',qualifier];
+  const qualifier=p.elapsed<28?'Foreløbigt skøn':'Skøn';
+  if (p.paceLow>GOAL) return ['Tempo over målet',p.paceLow>LIMIT?'bad':'warn',qualifier];
   if (p.pace>GOAL) return ['Tempo omkring målet','warn',qualifier];
   return ['Tempo inden for mål','good',qualifier];
 }
@@ -44,7 +41,7 @@ function recommendation(p) {
   if (p.annualShortfall) return 'Årets planlagte kørsel overstiger budgettet.';
   if (p.shortfall) return 'Periodens reserver overstiger budgettet med '+km(p.shortfall)+'.';
   const skip=p.usual-p.possible;
-  if (skip<=0) return '';
+  if (skip<=0 || p.possible===0) return '';
   const count=skip===1?'én':fmt(skip), trips=fmt(p.usual)+(p.usual===1?' tur':' ture');
   return 'Hvis du har '+trips+' planlagt, så spring '+count+' over.';
 }
@@ -53,7 +50,13 @@ function periodCard(p,blocked) {
   card.dataset.window=p.period;
   const heading=node('div','','period-heading');
   heading.append(node('h2',periodNames[p.period]));
-  if(p.end>p.start)heading.append(node('small',dateText(iso(p.start))+' – '+dateText(iso(p.end-1))+(p.clipped?' · til årsskiftet':'')));
+  if(p.end>p.start){
+    const single=p.end-p.start===1;
+    let dates=dateText(iso(p.start),false,single?'long':'short');
+    if(!single)dates+=' – '+dateText(iso(p.end-1),false,'short');
+    if(p.clipped)dates+=' · til kørselsårets slutning';
+    heading.append(node('small',dates));
+  }
   card.append(heading);
   if (!p.ready) {
     card.append(node('p',blocked?'Afventer beregning':p.reason,'unavailable'));
@@ -62,9 +65,10 @@ function periodCard(p,blocked) {
   const amount=node('p','','amount');
   amount.append(node('strong',fmt(p.fun)),node('span',' km'));
   card.append(amount);
-  const trips=p.possible===1?'1 tur til København':fmt(p.possible)+' ture til København';
+  const trips=p.possible===0?'Ingen København-tur':p.possible===1?'1 tur til København':fmt(p.possible)+' ture til København';
   const detail=node('p','','trip-result');
-  detail.append(node('strong',trips),document.createTextNode(' · '+km(p.left)+(p.possible?' tilovers':' til kortere ture')));
+  const distance=p.possible?' ('+km(p.fun-p.left)+')':'';
+  detail.append(node('strong',trips),document.createTextNode(distance+' · '+km(p.left)+(p.possible?' tilovers':' til kortere ture')));
   card.append(detail);
   const advice=recommendation(p);
   if(advice)card.append(node('p',advice,'recommendation'));
@@ -81,8 +85,6 @@ function renderHome(view) {
   write('basis',basis);
   $('basis').classList.toggle('warn',blocked || provisional);
   $('budgets').replaceChildren(...periods.map(period=>periodCard(period,blocked)));
-  $('overlap').hidden=!periods.some(x=>x.ready);
-  write('overlap','En København-tur er '+km(book.state.settings.tripKm)+' tur/retur. Ugerne indgår i 4-ugersbudgettet.');
   write('readingLabel',p.conflicts.length?'Seneste omstridte aflæsning':'Seneste aflæsning');
   write('lastKm',p.last?km(p.last.km):'—');
   write('lastDate',p.last?dateText(p.last.date,true):'');
@@ -91,7 +93,7 @@ function renderHome(view) {
   let pace='';
   if(status[2]){
     const value=p.elapsedHi===p.elapsed?fmt(Math.round(p.pace)):fmt(Math.floor(p.paceLow))+'–'+fmt(Math.ceil(p.pace));
-    pace='Skøn · '+value+' km/år';
+    pace=status[2]+' · '+value+' km/år';
   }
   message('yearQualifier',pace);
 }
@@ -170,7 +172,7 @@ function render() {
     write('basis',fatal+' Du kan gendanne historikken nederst på siden.');
     $('basis').classList.add('warn');
     $('budgets').replaceChildren(...Object.keys(periodNames).map(period=>periodCard({period},true)));
-    $('overlap').hidden=true;write('lastKm','—');write('lastDate','');write('readingLabel','Seneste aflæsning');
+    write('lastKm','—');write('lastDate','');write('readingLabel','Seneste aflæsning');
     write('yearStatus','Afventer historik');message('yearQualifier','');
     $('flags').replaceChildren();flag('Historikken er utilgængelig',fatal);
     $('historyRows').replaceChildren();$('recoveryBox').hidden=true;write('historyCount','');write('yearBalance','');
@@ -183,7 +185,7 @@ function render() {
     renderHistory(a);
     const valid=a.used!==null && !a.stateIssue && !a.conflicts.length && a.age>=0;
     write('yearBalance',valid?km(a.used)+' kørt i kørselsåret ved seneste måling. '+km(Math.abs(GOAL-a.used))+
-      (a.used>GOAL?' over årsmålet. ':' til årsmålet. ')+km(Math.abs(LIMIT-a.used))+(a.used>LIMIT?' over grænsen.':' til den øvre grænse.'):'');
+      (a.used>GOAL?' over årsmålet.':' til årsmålet.'):'');
   }
   if ($('settings').open) renderSettings(s);
 }

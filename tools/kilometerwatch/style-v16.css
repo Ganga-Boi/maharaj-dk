@@ -17,7 +17,7 @@ body {margin:0;min-height:100dvh;color:var(--text);font-size:15px;line-height:1.
 h1,h2,h3,p {margin:0}
 h1 {font-size:clamp(26px,6vw,34px);line-height:1.08;letter-spacing:-.045em}
 h2 {font-size:18px;line-height:1.25;letter-spacing:-.025em} h3 {font-size:15px;margin:14px 0 4px}
-.basis,.footnote,.hint,.fact small,.period-heading small {color:var(--muted)}
+.basis,.hint,.fact small,.period-heading small {color:var(--muted)}
 .basis {font-size:13px;line-height:1.4;margin:6px 0 14px}
 #budgets {display:grid;gap:8px}
 .budget {min-width:0;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:10px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:12px 15px;background:var(--panel)}
@@ -31,7 +31,6 @@ h2 {font-size:18px;line-height:1.25;letter-spacing:-.025em} h3 {font-size:15px;m
 .current .period-heading h2 {color:#e0f7e9}.current .amount {color:var(--accent);font-size:20px}
 .current .amount strong {font-size:clamp(38px,10vw,52px)}.current .trip-result {margin-top:9px}
 .unavailable {font-size:14px;color:var(--muted);margin-top:5px}
-.footnote {font-size:11px;line-height:1.35;margin:6px 2px 0}
 .car-data {margin:12px 0 18px}
 .fact,.line,.list-row {justify-content:space-between;gap:10px}
 .fact {padding:7px 2px;border-bottom:1px solid var(--line)}

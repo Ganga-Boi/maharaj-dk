@@ -21,8 +21,8 @@ export const weekday = n => ((n + 3) % 7 + 7) % 7; // Monday = 0
 export const keyOf = r => r.date + '/' + r.km;
 export const order = (a,b) => a.date.localeCompare(b.date) || a.km-b.km;
 export const fmt = n => new Intl.NumberFormat('da-DK',{maximumFractionDigits:0}).format(n);
-export function dateText(s, year = false) {
-  return new Intl.DateTimeFormat('da-DK', {timeZone:'UTC', day:'numeric', month:'short', ...(year && {year:'numeric'})}).format(day(s)*DAY_MS);
+export function dateText(s, year = false, weekdayStyle) {
+  return new Intl.DateTimeFormat('da-DK', {timeZone:'UTC', day:'numeric', month:'short', weekday:weekdayStyle, ...(year && {year:'numeric'})}).format(day(s)*DAY_MS);
 }
 export function yearAt(date) {
   const y = Number(date.slice(0,4)) - (date.slice(5) < '11-02' ? 1 : 0);
@@ -126,11 +126,13 @@ function periodPlan(state,now,period,a,gap) {
   const y=a.year;
   const first=now+(a.age===0 && a.last?.phase==='end'?1:0);
   const nextMonday=now-weekday(now)+7;
-  const start=period==='next'?Math.max(first,nextMonday):first;
-  const requestedEnd=period==='next'?nextMonday+7:period==='four'?start+28:nextMonday;
-  const end=Math.min(requestedEnd,y.end);
-  const base={...a,first,start,end,clipped:requestedEnd>y.end,period};
+  const current=period==='this';
+  const start=current?first:nextMonday;
+  const end=current?Math.min(nextMonday,y.end):start+(period==='four'?28:7);
+  const base={...a,first,start,end,clipped:current && nextMonday>y.end,period};
   if (a.reason) return {...base,ready:false};
+  // A full calendar-week budget cannot spend against a driving year without an opening reading.
+  if (end>y.end) return {...base,ready:false,reason:'Afventer startstanden for det nye kørselsår '+dateText(iso(y.end))+'.'};
   if (end<=start) return {...base,ready:false,reason:start>=y.end?
     'Afventer startstanden for næste kørselsår.':'Ugens kørsel er afsluttet.'};
   const partial=a.age===0 && a.last.phase==='mid'?a.last:null;

@@ -1,4 +1,4 @@
-import {FIRST,START_KM,KNOWN,day,defaults,keyOf,order,analyze} from './model-v16.js?front=3';
+import {FIRST,START_KM,KNOWN,day,defaults,keyOf,order,analyze} from './model-v16.js?front=4';
 
 export const STORE='kilometerwatch.v16.state';
 export const PREVIOUS='kilometerwatch.v16.previous';
